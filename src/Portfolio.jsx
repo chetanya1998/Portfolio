@@ -329,8 +329,8 @@ export default function Portfolio() {
                         <NavItem href="#work" label="Work" />
                         <NavItem href="#projects" label="Projects" />
                         <NavItem href="#research" label="Research" />
-                        <a href={`mailto:${personalInfo.email}`} className="px-5 py-2 bg-neutral-100 text-neutral-900 text-base font-bold rounded-full hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-0.5 shadow-lg hover:shadow-orange-500/20">
-                            Get in Touch
+                        <a href="/Chetanya_Ved_Resume.pdf" target="_blank" className="px-5 py-2 bg-neutral-100 text-neutral-900 text-base font-bold rounded-full hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-0.5 shadow-lg hover:shadow-orange-500/20">
+                            Resume
                         </a>
                     </div>
 
@@ -462,19 +462,19 @@ export default function Portfolio() {
                     </div>
                 </section>
 
-                {/* Projects Grid */}
+                {/* Projects Carousel */}
                 <section id="projects" className="py-16 md:py-24">
                     <SectionHeader num="2" title="Selected Projects" />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div className="flex overflow-x-auto gap-6 md:gap-8 pb-8 -mx-4 px-4 md:-mx-6 md:px-6 snap-x snap-mandatory scrollbar-hide">
                         {projects.map((project, idx) => (
-                            <FadeIn key={idx} delay={idx * 200}>
-                                <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-full">
+                            <FadeIn key={idx} delay={idx * 200} className="min-w-[85vw] md:min-w-[450px] snap-center">
+                                <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-full flex flex-col">
                                     <div className="absolute top-6 right-6 md:top-8 md:right-8 p-3 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 group-hover:text-white group-hover:border-orange-500/50 group-hover:scale-110 transition-all duration-300">
                                         <ArrowUpRight size={20} />
                                     </div>
 
-                                    <div className="mb-10 md:mb-12">
+                                    <div className="mb-8 md:mb-10">
                                         <div className="w-14 h-14 rounded-2xl bg-neutral-950 border border-neutral-800 flex items-center justify-center mb-6 group-hover:border-orange-500/20 transition-colors">
                                             {project.icon}
                                         </div>
@@ -483,17 +483,17 @@ export default function Portfolio() {
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                                        <div className="p-5 bg-neutral-950 rounded-xl border border-neutral-800">
-                                            <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-2">Focus</span>
+                                        <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800">
+                                            <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Focus</span>
                                             <span className="text-neutral-200 font-medium text-base md:text-lg">{project.focus}</span>
                                         </div>
-                                        <div className="p-5 bg-neutral-950 rounded-xl border border-neutral-800">
-                                            <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-2">Result</span>
+                                        <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800">
+                                            <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Result</span>
                                             <span className="text-green-400 font-medium text-base md:text-lg">{project.outcome}</span>
                                         </div>
                                     </div>
 
-                                    <p className="text-neutral-300 leading-relaxed text-base md:text-lg border-l-2 border-neutral-700 pl-6 group-hover:border-orange-500/50 transition-colors">
+                                    <p className="text-neutral-300 leading-relaxed text-base md:text-lg border-l-2 border-neutral-700 pl-6 group-hover:border-orange-500/50 transition-colors mt-auto">
                                         {project.desc}
                                     </p>
                                 </div>
@@ -530,9 +530,47 @@ export default function Portfolio() {
                                 </div>
                             </div>
 
+                            {/* Initiatives & Talks - New Carousel Section */}
+                            <div className="pt-8">
+                                <SectionHeader num="4" title="Initiatives & Talks" />
+                                <div className="flex overflow-x-auto gap-4 md:gap-6 pb-6 -mx-4 px-4 md:-mx-0 md:px-0 snap-x snap-mandatory scrollbar-hide">
+                                    {[
+                                        {
+                                            title: "IEEE - INCACCT’23 & 24",
+                                            role: "Research Paper Presented & Reviewer",
+                                            desc: "Contributed to academic discourse by presenting original research papers and serving as a reviewer for peer-reviewed conference submissions.",
+                                            link: "https://ieee-incacct.org/"
+                                        },
+                                        {
+                                            title: "Wiehack 3.0 (Covid-19)",
+                                            role: "Lead Organizer",
+                                            desc: "Organized a flagship online hackathon during the pandemic, fostering innovation and collaboration among hundreds of participants globally.",
+                                            link: "https://wiehack.bwividyapeeth.edu.in/"
+                                        },
+                                        {
+                                            title: "Important Initiatives",
+                                            role: "Various Projects",
+                                            desc: "Led multiple strategic initiatives focusing on community engagement, technical workshops, and student mentorship programs.",
+                                            link: "#"
+                                        }
+                                    ].map((item, idx) => (
+                                        <FadeIn key={idx} delay={idx * 100} className="min-w-[70vw] md:min-w-[300px] snap-center">
+                                            <div className="h-full p-5 md:p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative">
+                                                <div className="absolute top-4 right-4 text-neutral-600 group-hover:text-orange-500 transition-colors">
+                                                    <ArrowUpRight size={16} />
+                                                </div>
+                                                <h4 className="text-white font-medium text-lg mb-1 pr-6">{item.title}</h4>
+                                                <p className="text-orange-500 text-xs uppercase tracking-wider mb-2 font-bold">{item.role}</p>
+                                                <p className="text-neutral-400 text-sm leading-relaxed mt-auto border-t border-neutral-800 pt-3">{item.desc}</p>
+                                            </div>
+                                        </FadeIn>
+                                    ))}
+                                </div>
+                            </div>
+
                             {/* Education */}
                             <div>
-                                <SectionHeader num="4" title="Education" />
+                                <SectionHeader num="5" title="Education" />
                                 <FadeIn>
                                     <div className="p-6 md:p-8 bg-neutral-900/30 rounded-3xl border border-neutral-800 hover:border-neutral-700 transition-colors">
                                         <div className="flex flex-col sm:flex-row items-start gap-6">

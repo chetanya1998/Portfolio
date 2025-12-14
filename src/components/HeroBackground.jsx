@@ -7,7 +7,8 @@ const HeroBackground = () => {
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-        let width, height;
+        let width = window.innerWidth; // Init immediately
+        let height = window.innerHeight;
         let blobs = [];
         let animationFrameId;
 
@@ -20,11 +21,15 @@ const HeroBackground = () => {
         let mouse = { x: -1000, y: -1000 };
 
         const handleResize = () => {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-            initBlobs();
+            const newWidth = window.innerWidth;
+            // Only re-init if width changes (mobile scroll changes height which triggers resize)
+            if (newWidth !== width) {
+                width = newWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                initBlobs();
+            }
         };
 
         const handleMouseMove = (e) => {
