@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import HeroBackground from './components/HeroBackground';
+import GlobalBackground from './components/GlobalBackground';
 import GlowingCursor from './components/GlowingCursor';
 import Carousel from './components/Carousel';
 import {
@@ -314,7 +314,7 @@ export default function Portfolio() {
 
     return (
         <div className="min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-orange-500/30 selection:text-orange-100 relative overflow-x-hidden">
-            <HeroBackground />
+            <GlobalBackground />
             <GlowingCursor />
 
 
@@ -555,8 +555,8 @@ export default function Portfolio() {
                                             link: "#"
                                         }
                                     ].map((item, idx) => (
-                                        <FadeIn key={idx} delay={idx * 100} className="snap-center min-w-[70vw] md:min-w-0 md:basis-[calc(50%-1rem)] shrink-0 h-full">
-                                            {/* Note: In a 7-col grid, 33% is too small for these cards. Using 50% or full width might be better. Let's try 50% */}
+                                        <FadeIn key={idx} delay={idx * 100} className="snap-center min-w-[70vw] md:min-w-0 md:basis-[calc(33.33%-1rem)] shrink-0 h-full">
+                                            {/* Standardized to 3-column layout */}
                                             <div className="h-full p-5 md:p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative">
                                                 <div className="absolute top-4 right-4 text-neutral-600 group-hover:text-orange-500 transition-colors">
                                                     <ArrowUpRight size={16} />
