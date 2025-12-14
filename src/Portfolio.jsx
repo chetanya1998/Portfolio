@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import HeroBackground from './components/HeroBackground';
 import GlowingCursor from './components/GlowingCursor';
+import Carousel from './components/Carousel';
 import {
     ArrowUpRight,
     Mail,
@@ -466,9 +467,9 @@ export default function Portfolio() {
                 <section id="projects" className="py-16 md:py-24">
                     <SectionHeader num="2" title="Selected Projects" />
 
-                    <div className="flex overflow-x-auto gap-6 md:gap-8 pb-8 -mx-4 px-4 md:-mx-6 md:px-6 snap-x snap-mandatory scrollbar-hide">
+                    <Carousel>
                         {projects.map((project, idx) => (
-                            <FadeIn key={idx} delay={idx * 200} className="min-w-[85vw] md:min-w-[450px] snap-center">
+                            <FadeIn key={idx} delay={idx * 200} className="snap-center min-w-[85vw] md:min-w-0 md:basis-[calc(33.33%-1rem)] shrink-0 h-full">
                                 <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-full flex flex-col">
                                     <div className="absolute top-6 right-6 md:top-8 md:right-8 p-3 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 group-hover:text-white group-hover:border-orange-500/50 group-hover:scale-110 transition-all duration-300">
                                         <ArrowUpRight size={20} />
@@ -499,14 +500,14 @@ export default function Portfolio() {
                                 </div>
                             </FadeIn>
                         ))}
-                    </div>
+                    </Carousel>
                 </section>
 
                 {/* Research, Education & Skills */}
                 <section id="research" className="py-16 md:py-24">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
 
-                        {/* Left Column: Publications & Education */}
+                        {/* Left Column: Publications, Initiatives, Education */}
                         <div className="md:col-span-7 space-y-12 md:space-y-16">
 
                             {/* Publications */}
@@ -530,10 +531,10 @@ export default function Portfolio() {
                                 </div>
                             </div>
 
-                            {/* Initiatives & Talks - New Carousel Section */}
-                            <div className="pt-8">
+                            {/* Initiatives & Talks - w/ Carousel */}
+                            <div>
                                 <SectionHeader num="4" title="Initiatives & Talks" />
-                                <div className="flex overflow-x-auto gap-4 md:gap-6 pb-6 -mx-4 px-4 md:-mx-0 md:px-0 snap-x snap-mandatory scrollbar-hide">
+                                <Carousel>
                                     {[
                                         {
                                             title: "IEEE - INCACCT’23 & 24",
@@ -554,7 +555,8 @@ export default function Portfolio() {
                                             link: "#"
                                         }
                                     ].map((item, idx) => (
-                                        <FadeIn key={idx} delay={idx * 100} className="min-w-[70vw] md:min-w-[300px] snap-center">
+                                        <FadeIn key={idx} delay={idx * 100} className="snap-center min-w-[70vw] md:min-w-0 md:basis-[calc(50%-1rem)] shrink-0 h-full">
+                                            {/* Note: In a 7-col grid, 33% is too small for these cards. Using 50% or full width might be better. Let's try 50% */}
                                             <div className="h-full p-5 md:p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative">
                                                 <div className="absolute top-4 right-4 text-neutral-600 group-hover:text-orange-500 transition-colors">
                                                     <ArrowUpRight size={16} />
@@ -565,7 +567,7 @@ export default function Portfolio() {
                                             </div>
                                         </FadeIn>
                                     ))}
-                                </div>
+                                </Carousel>
                             </div>
 
                             {/* Education */}
@@ -715,6 +717,6 @@ export default function Portfolio() {
                     </div>
                 </div>
             </footer>
-        </div>
+        </div >
     );
 }
