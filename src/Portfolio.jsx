@@ -20,7 +20,7 @@ import {
     Globe,
     MessageSquare,
     Send,
-    Bot,
+
     Download
 } from 'lucide-react';
 
@@ -156,30 +156,7 @@ const skills = {
     tools: ["Jira", "Linear", "Git", "Power BI", "Google Analytics", "New Relic"]
 };
 
-// --- API Logic ---
-const callGemini = async (prompt, systemInstruction = "") => {
-    try {
-        const apiKey = ""; // Runtime environment provides key
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }],
-                    systemInstruction: { parts: [{ text: systemInstruction }] },
-                }),
-            }
-        );
 
-        if (!response.ok) throw new Error("API call failed");
-        const data = await response.json();
-        return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
-    } catch (error) {
-        console.error(error);
-        return "Something went wrong. Please try again.";
-    }
-};
 
 // --- Animation Components ---
 
@@ -294,112 +271,7 @@ const TypewriterLine = ({ items, speed = 50 }) => {
 
 // GridBackground and CursorSpotlight removed as they are replaced by HeroBackground
 
-// --- AI Components ---
 
-const ChatWidget = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState([
-        { role: 'assistant', text: "Hi! I'm Chetanya's AI assistant. Ask me anything about his Product Management experience, AdTech skills, or research work!" }
-    ]);
-    const [input, setInput] = useState("");
-    const [loading, setLoading] = useState(false);
-    const scrollRef = useRef(null);
-
-    useEffect(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-        }
-    }, [messages]);
-
-    const handleSend = async () => {
-        if (!input.trim()) return;
-        const userMsg = input;
-        setInput("");
-        setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
-        setLoading(true);
-
-        const systemPrompt = `You are the AI portfolio assistant for Chetanya Ved.
-    Here is his profile context:
-    - Role: Associate Product Manager at Unibots (AdTech).
-    - Experience: 2+ years. Built 0-1 Keyword Research Tool, Campaign Manager, and ML Bot Detection.
-    - Skills: Product Strategy, Roadmapping, Google Ads, Python, SQL, Machine Learning.
-    - Research: Published 10 papers with 100+ citations (Deep Learning, Blockchain).
-    - Education: B.Tech IT from GGSIPU (8.21 CGPA).
-    
-    Answer questions as if you are a helpful assistant representing him. Be professional, concise, and enthusiastic. Highlight his achievements in revenue growth and automation.`;
-
-        const reply = await callGemini(userMsg, systemPrompt);
-
-        setMessages(prev => [...prev, { role: 'assistant', text: reply }]);
-        setLoading(false);
-    };
-
-    return (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-            {isOpen && (
-                <div className="mb-4 w-[calc(100vw-3rem)] max-w-[400px] h-[500px] bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-10 fade-in">
-                    <div className="p-4 bg-neutral-950 border-b border-neutral-800 flex justify-between items-center">
-                        <div className="flex items-center gap-2">
-                            <Bot size={20} className="text-orange-500" />
-                            <span className="font-medium text-white">Portfolio Assistant</span>
-                        </div>
-                        <button onClick={() => setIsOpen(false)} className="text-neutral-500 hover:text-white">
-                            <X size={18} />
-                        </button>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4" ref={scrollRef}>
-                        {messages.map((msg, i) => (
-                            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[80%] p-3 rounded-xl text-sm ${msg.role === 'user'
-                                    ? 'bg-orange-600 text-white rounded-br-none'
-                                    : 'bg-neutral-800 text-neutral-200 rounded-bl-none'
-                                    }`}>
-                                    {msg.text}
-                                </div>
-                            </div>
-                        ))}
-                        {loading && (
-                            <div className="flex justify-start">
-                                <div className="bg-neutral-800 p-3 rounded-xl rounded-bl-none flex gap-2">
-                                    <div className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce"></div>
-                                    <div className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce delay-100"></div>
-                                    <div className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce delay-200"></div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="p-4 bg-neutral-950 border-t border-neutral-800 flex gap-2">
-                        <input
-                            type="text"
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                            placeholder="Ask me anything..."
-                            className="flex-1 bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-orange-500"
-                        />
-                        <button
-                            onClick={handleSend}
-                            disabled={loading || !input.trim()}
-                            className="bg-orange-600 hover:bg-orange-700 text-white p-2 rounded-lg disabled:opacity-50"
-                        >
-                            <Send size={18} />
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="bg-orange-500 hover:bg-orange-600 text-white p-4 rounded-full shadow-lg hover:scale-105 transition-transform group"
-                aria-label="Toggle chat"
-            >
-                {isOpen ? <X size={24} /> : <MessageSquare size={24} className="group-hover:animate-pulse" />}
-            </button>
-        </div>
-    );
-};
 
 // --- Structural Components ---
 
@@ -443,7 +315,7 @@ export default function Portfolio() {
         <div className="min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-orange-500/30 selection:text-orange-100 relative overflow-x-hidden">
             <HeroBackground />
             <GlowingCursor />
-            <ChatWidget />
+
 
             {/* Navigation */}
             <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-neutral-950/90 backdrop-blur-lg border-b border-neutral-800 py-4 shadow-2xl' : 'py-4 md:py-6 bg-transparent'}`}>
