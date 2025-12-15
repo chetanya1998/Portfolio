@@ -356,8 +356,21 @@ export default function Portfolio() {
             {/* Hero Section */}
             <section className="relative pt-32 pb-16 md:pt-60 md:pb-32 px-4 md:px-6 z-10 min-h-screen flex items-center">
                 <div className="max-w-7xl mx-auto w-full">
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-end">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
                         <div className="md:col-span-8">
+                            {/* Avatar - Mobile/Tablet */}
+                            <FadeIn delay={50}>
+                                <div className="flex justify-center md:hidden mb-8">
+                                    <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-orange-500/20 shadow-2xl shadow-orange-500/20">
+                                        <img
+                                            src="/avatar.png"
+                                            alt="Chetanya Ved - 3D Avatar"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                </div>
+                            </FadeIn>
+
                             <FadeIn delay={100}>
                                 <h1 className="text-4xl sm:text-5xl md:text-8xl font-medium text-white leading-[1.1] md:leading-[0.9] tracking-tight mb-8">
                                     {personalInfo.name}<span className="text-orange-500">.</span> <br />
@@ -400,8 +413,22 @@ export default function Portfolio() {
                             </FadeIn>
                         </div>
 
-                        {/* Stats Bento */}
-                        <div className="md:col-span-4 w-full mt-8 md:mt-0">
+                        {/* Avatar - Desktop + Stats */}
+                        <div className="md:col-span-4 w-full mt-8 md:mt-0 space-y-8">
+                            {/* Avatar - Desktop Only */}
+                            <FadeIn delay={50}>
+                                <div className="hidden md:flex justify-center mb-8">
+                                    <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-orange-500/30 shadow-2xl shadow-orange-500/30 hover:border-orange-500/50 transition-all duration-300 hover:scale-105">
+                                        <img
+                                            src="/avatar.png"
+                                            alt="Chetanya Ved - 3D Avatar"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                </div>
+                            </FadeIn>
+
+                            {/* Stats Bento */}
                             <FadeIn delay={1600}>
                                 <div className="grid grid-cols-2 gap-px bg-neutral-800 border border-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
                                     {stats.map((stat, i) => (
