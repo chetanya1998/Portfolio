@@ -12,9 +12,9 @@ const GlobalBackground = () => {
         let animationFrameId;
 
         // Configuration
-        const particleCount = window.innerWidth < 768 ? 30 : 80; // Fewer on mobile
-        const connectionDistance = 150;
-        const moveSpeed = 0.5;
+        const particleCount = window.innerWidth < 768 ? 50 : 120; // More particles
+        const connectionDistance = 180; // Longer connections
+        const moveSpeed = 0.8; // Faster movement
 
         // Mouse tracking
         let mouse = { x: -1000, y: -1000 };
@@ -46,7 +46,7 @@ const GlobalBackground = () => {
                 this.y = Math.random() * height;
                 this.vx = (Math.random() - 0.5) * moveSpeed;
                 this.vy = (Math.random() - 0.5) * moveSpeed;
-                this.size = Math.random() * 2 + 1;
+                this.size = Math.random() * 3 + 1; // Larger particles (was 2+1)
             }
 
             update() {
@@ -72,7 +72,7 @@ const GlobalBackground = () => {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'; // Much higher opacity
                 ctx.fill();
             }
         }
@@ -94,7 +94,7 @@ const GlobalBackground = () => {
             });
 
             // Draw connections
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'; // Much higher opacity lines
             ctx.lineWidth = 1;
 
             for (let i = 0; i < particles.length; i++) {

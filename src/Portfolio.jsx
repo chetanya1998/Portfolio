@@ -313,7 +313,7 @@ export default function Portfolio() {
     ];
 
     return (
-        <div className="min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-orange-500/30 selection:text-orange-100 relative overflow-x-hidden">
+        <div className="min-h-screen bg-transparent text-neutral-300 font-sans selection:bg-orange-500/30 selection:text-orange-100 relative overflow-x-hidden">
             <GlobalBackground />
             <GlowingCursor />
 
@@ -361,7 +361,7 @@ export default function Portfolio() {
                             <FadeIn delay={100}>
                                 <h1 className="text-4xl sm:text-5xl md:text-8xl font-medium text-white leading-[1.1] md:leading-[0.9] tracking-tight mb-8">
                                     {personalInfo.name}<span className="text-orange-500">.</span> <br />
-                                    <span className="text-neutral-400 text-2xl sm:text-3xl md:text-5xl block mt-5 min-h-[3em] md:min-h-[2.5em] font-light">
+                                    <span className="text-neutral-400 text-2xl sm:text-3xl md:text-5xl block mt-5 min-h-[3em] md:min-h-[2.5em] font-bold">
                                         <TypewriterLine items={heroTypewriterItems} />
                                     </span>
                                 </h1>
@@ -434,7 +434,7 @@ export default function Portfolio() {
                                             <h3 className="text-2xl font-medium text-white mt-1">{exp.company}</h3>
                                         </div>
                                         <div className="md:col-span-4">
-                                            <h4 className="text-xl md:text-2xl text-neutral-200 group-hover:text-white transition-colors flex items-center gap-2 font-medium">
+                                            <h4 className="text-xl md:text-2xl text-neutral-200 group-hover:text-white transition-colors flex items-center gap-2 font-bold">
                                                 {exp.role} <ArrowUpRight size={20} className="opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 text-orange-500" />
                                             </h4>
                                         </div>
@@ -470,12 +470,12 @@ export default function Portfolio() {
                     <Carousel>
                         {projects.map((project, idx) => (
                             <FadeIn key={idx} delay={idx * 200} className="snap-center min-w-[85vw] md:min-w-0 md:basis-[calc(33.33%-1rem)] shrink-0 h-full">
-                                <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-full flex flex-col">
+                                <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-[500px] flex flex-col overflow-hidden">
                                     <div className="absolute top-6 right-6 md:top-8 md:right-8 p-3 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 group-hover:text-white group-hover:border-orange-500/50 group-hover:scale-110 transition-all duration-300">
                                         <ArrowUpRight size={20} />
                                     </div>
 
-                                    <div className="mb-8 md:mb-10">
+                                    <div className="mb-6 md:mb-8">
                                         <div className="w-14 h-14 rounded-2xl bg-neutral-950 border border-neutral-800 flex items-center justify-center mb-6 group-hover:border-orange-500/20 transition-colors">
                                             {project.icon}
                                         </div>
@@ -483,18 +483,18 @@ export default function Portfolio() {
                                         <p className="font-mono text-base text-orange-500">{project.type}</p>
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                                         <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800">
                                             <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Focus</span>
-                                            <span className="text-neutral-200 font-medium text-base md:text-lg">{project.focus}</span>
+                                            <span className="text-neutral-200 font-medium text-base md:text-lg truncate">{project.focus}</span>
                                         </div>
                                         <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800">
                                             <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Result</span>
-                                            <span className="text-green-400 font-medium text-base md:text-lg">{project.outcome}</span>
+                                            <span className="text-green-400 font-medium text-base md:text-lg truncate">{project.outcome}</span>
                                         </div>
                                     </div>
 
-                                    <p className="text-neutral-300 leading-relaxed text-base md:text-lg border-l-2 border-neutral-700 pl-6 group-hover:border-orange-500/50 transition-colors mt-auto">
+                                    <p className="text-neutral-300 leading-relaxed text-base md:text-lg border-l-2 border-neutral-700 pl-6 group-hover:border-orange-500/50 transition-colors mt-auto flex-1 line-clamp-4 text-ellipsis overflow-hidden">
                                         {project.desc}
                                     </p>
                                 </div>
@@ -557,13 +557,13 @@ export default function Portfolio() {
                                     ].map((item, idx) => (
                                         <FadeIn key={idx} delay={idx * 100} className="snap-center min-w-[70vw] md:min-w-0 md:basis-[calc(33.33%-1rem)] shrink-0 h-full">
                                             {/* Standardized to 3-column layout */}
-                                            <div className="h-full p-5 md:p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative">
+                                            <div className="h-[320px] p-5 md:p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative overflow-hidden">
                                                 <div className="absolute top-4 right-4 text-neutral-600 group-hover:text-orange-500 transition-colors">
                                                     <ArrowUpRight size={16} />
                                                 </div>
-                                                <h4 className="text-white font-medium text-lg mb-1 pr-6">{item.title}</h4>
-                                                <p className="text-orange-500 text-xs uppercase tracking-wider mb-2 font-bold">{item.role}</p>
-                                                <p className="text-neutral-400 text-sm leading-relaxed mt-auto border-t border-neutral-800 pt-3">{item.desc}</p>
+                                                <h4 className="text-white font-medium text-lg mb-1 pr-6 truncate">{item.title}</h4>
+                                                <p className="text-orange-500 text-xs uppercase tracking-wider mb-2 font-bold truncate">{item.role}</p>
+                                                <p className="text-neutral-400 text-sm leading-relaxed mt-auto border-t border-neutral-800 pt-3 flex-1 line-clamp-4 text-ellipsis overflow-hidden">{item.desc}</p>
                                             </div>
                                         </FadeIn>
                                     ))}
