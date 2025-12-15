@@ -363,7 +363,7 @@ export default function Portfolio() {
                                 <div className="flex justify-center md:hidden mb-8">
                                     <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-orange-500/20 shadow-2xl shadow-orange-500/20">
                                         <img
-                                            src="/avatar.png"
+                                            src="./avatar.png"
                                             alt="Chetanya Ved - 3D Avatar"
                                             className="w-full h-full object-cover"
                                         />
@@ -420,7 +420,7 @@ export default function Portfolio() {
                                 <div className="hidden md:flex justify-center mb-8">
                                     <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-orange-500/30 shadow-2xl shadow-orange-500/30 hover:border-orange-500/50 transition-all duration-300 hover:scale-105">
                                         <img
-                                            src="/avatar.png"
+                                            src="./avatar.png"
                                             alt="Chetanya Ved - 3D Avatar"
                                             className="w-full h-full object-cover"
                                         />
