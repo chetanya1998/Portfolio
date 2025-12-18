@@ -391,7 +391,16 @@ export default function Portfolio() {
                                         <Download size={20} /> Download Resume
                                     </a>
                                     <a
-                                        href={personalInfo.linkedin}
+                                        href="https://scholar.google.com/citations?user=OqCUANwAAAAJ&hl=en"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="group flex items-center justify-center gap-3 px-8 py-4 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-neutral-900 text-base md:text-lg"
+                                    >
+                                        <BookOpen size={20} />
+                                        <span>Scholar</span>
+                                    </a>
+                                    <a
+                                        href="https://www.linkedin.com/in/chetanya-ved/"
                                         target="_blank"
                                         rel="noreferrer"
                                         className="group flex items-center justify-center gap-3 px-8 py-4 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-[#0077b5] hover:border-[#0077b5] text-base md:text-lg"
@@ -518,18 +527,36 @@ export default function Portfolio() {
                             {/* Publications */}
                             <div>
                                 <SectionHeader num="3" title="Publications" />
-                                <div className="space-y-4">
-                                    {publications.map((pub, idx) => (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {[
+                                        { title: "Blockchain in pharmaceutical sector", citations: "29", context: "Applications of blockchain in healthcare" },
+                                        { title: "Healthcare solutions for smart era: An useful explanation from user's perspective", citations: "25", context: "Recent trends in blockchain security" },
+                                        { title: "Digital twin in agriculture sector: Detection of disease using deep learning", citations: "13", context: "Digital Twin Technology" },
+                                        { title: "Emergence of Blockchain Applications with the 6G-Enabled IoT-Based Smart City", citations: "9", context: "Blockchain for 6G-Enabled Networks" },
+                                        { title: "YOLO-Based Vehicle Detection and Counting for Traffic Control on Highway", citations: "7", context: "2024 2nd Intl Conference on Computation" },
+                                        { title: "Emergence of Big Data and Blockchain Technology in Smart City", citations: "6", context: "Convergence of IoT, Blockchain" },
+                                        { title: "The emergence of blockchain technology in industrial revolution 5.0", citations: "5", context: "Privacy Preservation of Genomic Data" },
+                                        { title: "Healthcare Solutions for the Next Generation", citations: "5", context: "Recent Trends in Blockchain" },
+                                        { title: "Hybrid deep learning approach for product categorization in e-commerce", citations: "4", context: "AIP Conference Proceedings" },
+                                        { title: "Decentralized and secured applications of blockchain in the biomedical domain", citations: "3", context: "Applications of blockchain and big IoT" },
+                                        { title: "Prediction of Kyphosis Disease Using Random Forest and Gradient Boosting Algorithm", citations: "1", context: "2024 2nd Intl Conference on Computation" }
+                                    ].map((pub, idx) => (
                                         <FadeIn key={idx} delay={idx * 100}>
-                                            <div className="p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-neutral-600 hover:bg-neutral-900 transition-all duration-300 cursor-default group">
-                                                <div className="flex items-start justify-between gap-4">
-                                                    <div className="flex gap-4">
-                                                        <div className="mt-1 p-2 bg-orange-500/10 rounded-lg text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors shrink-0">
-                                                            <BookOpen size={18} />
-                                                        </div>
-                                                        <p className="text-neutral-200 text-base md:text-lg leading-relaxed group-hover:text-white transition-colors">{pub}</p>
+                                            <div className="h-full p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative overflow-hidden">
+                                                <div className="flex justify-between items-start mb-4">
+                                                    <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors shrink-0">
+                                                        <BookOpen size={18} />
                                                     </div>
+                                                    {pub.citations && (
+                                                        <span className="text-xs font-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 px-2 py-1 rounded border border-neutral-800">
+                                                            Citations: <span className="text-orange-500">{pub.citations}</span>
+                                                        </span>
+                                                    )}
                                                 </div>
+                                                <h4 className="text-white font-medium text-lg mb-2 leading-snug group-hover:text-orange-100 transition-colors line-clamp-3">{pub.title}</h4>
+                                                <p className="text-neutral-500 text-sm mt-auto pt-4 border-t border-neutral-800 line-clamp-2">
+                                                    {pub.context}
+                                                </p>
                                             </div>
                                         </FadeIn>
                                     ))}
