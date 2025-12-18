@@ -517,6 +517,62 @@ export default function Portfolio() {
                     </div>
                 </section>
 
+                {/* Product Cases Analyzed */}
+                <section id="product-cases" className="py-16 md:py-24">
+                    <SectionHeader num="3" title="Product Cases Analyzed & Breakdowns" />
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[
+                            { title: "Bumble Dating App", subtitle: "Sentiment Analysis", tags: ["Customer Review Analysis", "Market Research", "Data Analysis"], icon: "smartphone", color: "from-yellow-400 to-yellow-600" },
+                            { title: "Third Wave Coffee", subtitle: "Capstone Project", tags: ["Customer Acquisition", "Adoption", "Wireframes"], icon: "coffee", color: "from-amber-700 to-amber-900" },
+                            { title: "FitTrack", subtitle: "PRD", tags: ["PRD", "Product Design", "Product Improvement"], icon: "activity", color: "from-emerald-500 to-emerald-700" },
+                            { title: "FinBot", subtitle: "Personal Finance Manager", tags: ["Product Design", "Wireframes", "Fintech"], icon: "dollar-sign", color: "from-green-600 to-green-800" },
+                            { title: "ATM for the Elderly", subtitle: "Design Case Study", tags: ["Market Research", "Product Improvement"], icon: "credit-card", color: "from-blue-600 to-blue-800" },
+                            { title: "Elderfit", subtitle: "Product Case Study", tags: ["Product Innovation", "Product Design", "Wireframes"], icon: "heart", color: "from-red-500 to-red-700" },
+                            { title: "Finshots", subtitle: "Product Case Study", tags: ["Fintech", "Product Improvement", "Wireframes"], icon: "trending-up", color: "from-blue-400 to-blue-600" },
+                            { title: "Spotify", subtitle: "Product Case Study", tags: ["Market Research", "Product Improvement", "Wireframes"], icon: "mouse-pointer", color: "from-green-500 to-green-700" },
+                            { title: "Evernote", subtitle: "Product Case Study", tags: ["Product Improvement", "Product Design", "Wireframes"], icon: "file-text", color: "from-green-400 to-green-600" },
+                            { title: "Google Maps", subtitle: "Improving Navigation", tags: ["Product Design", "Product Improvement"], icon: "map", color: "from-red-500 to-yellow-500" },
+                            { title: "Air Fryer", subtitle: "Product Market Research", tags: ["Market Research", "Data Analysis"], icon: "wind", color: "from-orange-100 to-orange-300" },
+                            { title: "EV Industry", subtitle: "Competitive Dynamics", tags: ["Market Research", "EV"], icon: "zap", color: "from-blue-500 to-purple-500" }
+                        ].map((item, idx) => (
+                            <FadeIn key={idx} delay={idx * 50}>
+                                <div className="group h-full bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-900/5 transition-all duration-300 flex flex-col">
+                                    {/* Thumbnail Placeholder */}
+                                    <div className={`h-40 w-full bg-gradient-to-br ${item.color} relative p-6 flex flex-col justify-between group-hover:scale-105 transition-transform duration-500`}>
+                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                                        <div className="relative z-10 p-3 bg-white/20 backdrop-blur-md rounded-xl w-fit text-white">
+                                            {/* Icons would normally be imported, using generic box for now if dynamic import tricky, but assuming Lucide usage */}
+                                            {/* Mapping string to component is tricky in loop without a map object. Using generic icon for simplicity in this snippet, or I will update imports later. 
+                                                Actually, I'll use a simple generic icon here effectively or rely on conditional rendering if I can.
+                                                Simplest approach: Just use ArrowUpRight in corner and the text title.
+                                             */}
+                                            <ArrowUpRight size={20} className="text-white" />
+                                        </div>
+                                        <h3 className="relative z-10 text-xl font-bold text-white shadow-sm">{item.title}</h3>
+                                    </div>
+
+                                    <div className="p-5 flex flex-col flex-1">
+                                        <h4 className="text-neutral-200 font-medium mb-3">{item.subtitle}</h4>
+
+                                        <div className="flex flex-wrap gap-2 mt-auto">
+                                            {item.tags.map((tag, tIdx) => (
+                                                <span key={tIdx} className="text-xs px-2 py-1 rounded bg-neutral-950 border border-neutral-800 text-neutral-400">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        <div className="mt-4 pt-4 border-t border-neutral-800 flex items-center gap-2 text-sm text-orange-500 font-medium opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+                                            Read Case Study <ArrowRight size={14} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </FadeIn>
+                        ))}
+                    </div>
+                </section>
+
                 {/* Research, Education & Skills */}
                 <section id="research" className="py-16 md:py-24">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
@@ -526,7 +582,7 @@ export default function Portfolio() {
 
                             {/* Publications */}
                             <div>
-                                <SectionHeader num="3" title="Publications" />
+                                <SectionHeader num="4" title="Publications" />
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {[
                                         { title: "Blockchain in pharmaceutical sector", citations: "29", context: "Applications of blockchain in healthcare" },
@@ -565,7 +621,7 @@ export default function Portfolio() {
 
                             {/* Initiatives & Talks - w/ Carousel */}
                             <div>
-                                <SectionHeader num="4" title="Initiatives & Talks" />
+                                <SectionHeader num="5" title="Initiatives & Talks" />
                                 <Carousel>
                                     {[
                                         {
