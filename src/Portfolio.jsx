@@ -4,6 +4,7 @@ import GlowingCursor from './components/GlowingCursor';
 import Carousel from './components/Carousel';
 import {
     ArrowUpRight,
+    ArrowRight,
     Mail,
     Linkedin,
     Menu,
