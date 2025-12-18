@@ -359,17 +359,7 @@ export default function Portfolio() {
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
                         <div className="md:col-span-8">
                             {/* Avatar - Mobile/Tablet */}
-                            <FadeIn delay={50}>
-                                <div className="flex justify-center md:hidden mb-8">
-                                    <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-orange-500/20 shadow-2xl shadow-orange-500/20">
-                                        <img
-                                            src="./avatar.png"
-                                            alt="Chetanya Ved - 3D Avatar"
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-                                </div>
-                            </FadeIn>
+
 
                             <FadeIn delay={100}>
                                 <h1 className="text-4xl sm:text-5xl md:text-8xl font-medium text-white leading-[1.1] md:leading-[0.9] tracking-tight mb-8">
@@ -413,20 +403,8 @@ export default function Portfolio() {
                             </FadeIn>
                         </div>
 
-                        {/* Avatar - Desktop + Stats */}
-                        <div className="md:col-span-4 w-full mt-8 md:mt-0 space-y-8">
-                            {/* Avatar - Desktop Only */}
-                            <FadeIn delay={50}>
-                                <div className="hidden md:flex justify-center mb-8">
-                                    <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-orange-500/30 shadow-2xl shadow-orange-500/30 hover:border-orange-500/50 transition-all duration-300 hover:scale-105">
-                                        <img
-                                            src="./avatar.png"
-                                            alt="Chetanya Ved - 3D Avatar"
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-                                </div>
-                            </FadeIn>
+                        {/* Stats Bento */}
+                        <div className="md:col-span-4 w-full mt-8 md:mt-0">
 
                             {/* Stats Bento */}
                             <FadeIn delay={1600}>
@@ -494,9 +472,9 @@ export default function Portfolio() {
                 <section id="projects" className="py-16 md:py-24">
                     <SectionHeader num="2" title="Selected Projects" />
 
-                    <Carousel>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {projects.map((project, idx) => (
-                            <FadeIn key={idx} delay={idx * 200} className="snap-center min-w-[85vw] md:min-w-0 md:basis-[calc(33.33%-1rem)] shrink-0 h-full">
+                            <FadeIn key={idx} delay={idx * 100}>
                                 <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-[500px] flex flex-col overflow-hidden">
                                     <div className="absolute top-6 right-6 md:top-8 md:right-8 p-3 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 group-hover:text-white group-hover:border-orange-500/50 group-hover:scale-110 transition-all duration-300">
                                         <ArrowUpRight size={20} />
@@ -511,13 +489,13 @@ export default function Portfolio() {
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                                        <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800">
+                                        <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 min-w-0">
                                             <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Focus</span>
-                                            <span className="text-neutral-200 font-medium text-base md:text-lg truncate">{project.focus}</span>
+                                            <span className="text-neutral-200 font-medium text-base md:text-lg break-words line-clamp-2">{project.focus}</span>
                                         </div>
-                                        <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800">
+                                        <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 min-w-0">
                                             <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Result</span>
-                                            <span className="text-green-400 font-medium text-base md:text-lg truncate">{project.outcome}</span>
+                                            <span className="text-green-400 font-medium text-base md:text-lg break-words line-clamp-2">{project.outcome}</span>
                                         </div>
                                     </div>
 
@@ -527,7 +505,7 @@ export default function Portfolio() {
                                 </div>
                             </FadeIn>
                         ))}
-                    </Carousel>
+                    </div>
                 </section>
 
                 {/* Research, Education & Skills */}
