@@ -401,45 +401,52 @@ export default function Portfolio() {
                             </FadeIn>
 
                             <FadeIn delay={1400}>
-                                <div className="flex flex-col sm:flex-row gap-4">
-                                    <a href="#projects" className="group flex items-center justify-center gap-3 px-8 py-4 bg-neutral-900 border border-neutral-800 rounded-full text-white hover:bg-neutral-800 hover:border-orange-500/50 transition-all shadow-lg text-base md:text-lg">
-                                        View Work
-                                        <ArrowUpRight className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" size={18} />
-                                    </a>
-                                    <a
-                                        href="/Chetanya_Ved_Resume.pdf"
-                                        download
-                                        className="group flex items-center justify-center gap-3 px-8 py-4 text-neutral-400 hover:text-white transition-colors border border-neutral-800 rounded-full hover:bg-neutral-900 text-base md:text-lg"
-                                    >
-                                        <Download size={20} /> Download Resume
-                                    </a>
-                                    <a
-                                        href="https://scholar.google.com/citations?user=OqCUANwAAAAJ&hl=en"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="group flex items-center justify-center gap-3 px-8 py-4 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-neutral-900 text-base md:text-lg"
-                                    >
-                                        <BookOpen size={20} />
-                                        <span>Scholar</span>
-                                    </a>
-                                    <a
-                                        href="https://www.linkedin.com/in/chetanya-ved/"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="group flex items-center justify-center gap-3 px-8 py-4 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-[#0077b5] hover:border-[#0077b5] text-base md:text-lg"
-                                    >
-                                        <Linkedin size={20} />
-                                        <span>LinkedIn</span>
-                                    </a>
-                                    <a
-                                        href="https://github.com/chetanya1998"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="group flex items-center justify-center gap-3 px-8 py-4 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-neutral-900 text-base md:text-lg"
-                                    >
-                                        <Github size={20} />
-                                        <span>GitHub</span>
-                                    </a>
+                                <div className="flex flex-col gap-6">
+                                    {/* Primary Actions */}
+                                    <div className="flex flex-wrap gap-4">
+                                        <a href="#projects" className="group flex items-center justify-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white hover:bg-neutral-800 hover:border-orange-500/50 transition-all shadow-lg text-sm md:text-base font-medium">
+                                            View Work
+                                            <ArrowUpRight className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" size={16} />
+                                        </a>
+                                        <a
+                                            href="/Chetanya_Ved_Resume.pdf"
+                                            download
+                                            className="group flex items-center justify-center gap-2 px-6 py-3 text-neutral-400 hover:text-white transition-colors border border-neutral-800 rounded-full hover:bg-neutral-900 text-sm md:text-base font-medium"
+                                        >
+                                            <Download size={18} /> Download Resume
+                                        </a>
+                                    </div>
+
+                                    {/* Social Links */}
+                                    <div className="flex flex-wrap gap-3">
+                                        <a
+                                            href="https://scholar.google.com/citations?user=OqCUANwAAAAJ&hl=en"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="group flex items-center justify-center gap-2 px-5 py-2.5 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-neutral-900 text-sm font-medium hover:border-neutral-700"
+                                        >
+                                            <BookOpen size={18} />
+                                            <span>Scholar</span>
+                                        </a>
+                                        <a
+                                            href="https://www.linkedin.com/in/chetanya-ved/"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="group flex items-center justify-center gap-2 px-5 py-2.5 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-[#0077b5] hover:border-[#0077b5] text-sm font-medium"
+                                        >
+                                            <Linkedin size={18} />
+                                            <span>LinkedIn</span>
+                                        </a>
+                                        <a
+                                            href="https://github.com/chetanya1998"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="group flex items-center justify-center gap-2 px-5 py-2.5 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-neutral-900 text-sm font-medium hover:border-neutral-700"
+                                        >
+                                            <Github size={18} />
+                                            <span>GitHub</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </FadeIn>
                         </div>
