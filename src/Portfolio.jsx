@@ -160,6 +160,40 @@ const leadership = [
     }
 ];
 
+const leadershipRoles = [
+    {
+        role: "IEEE-Vice-Chairperson of BVCOE (2020-21)",
+        points: [
+            <>Organized and managed <span className="text-white font-medium">10+ speaker sessions</span> in collaboration with Industry Experts.</>,
+            <>Co-Founder & Head Supervisor of the <span className="text-white font-medium">36-Hour International Women-Centric Hackathon called as</span> <a href="https://wiehack.bwividyapeeth.edu.in/" target="_blank" rel="noreferrer" className="text-orange-500 hover:underline decoration-orange-500/30">WIEHACK 3.0</a>.</>,
+            <>Spearheaded a team of <span className="text-white font-medium">74 Members</span>.</>,
+            <>Received <span className="text-white font-medium">Dr JK Pal Memorial Award</span> from IEEE Delhi Section.</>,
+            <>Received over <span className="text-white font-medium">50 IEEE membership applications</span>.</>
+        ]
+    },
+    {
+        role: "IEEE (IAS) - Chairperson | IEEE-Head of Public and Corporate Affairs Relations (2019 -20)",
+        points: [
+            <>Headed dual <span className="text-white font-medium">responsiblities</span>.</>,
+            <>Spearheaded a team of <span className="text-white font-medium">50 members</span>.</>,
+            <>Introduced and <span className="text-white font-medium">organized</span> a Smart City workshop.</>,
+            <>Organized a workshop on Mozilla Add-ons with a Mozilla Representative.</>,
+            <>Event Manager of <span className="text-white font-medium">WIEHack 2.0</span>.</>,
+            <>Raised Sponsorship of more than <span className="text-white font-medium">20 Lacs</span> in kinds.</>
+        ]
+    },
+    {
+        role: "Head E-Cell (2018-19)",
+        points: [
+            <>Spearheaded the Team of <span className="text-white font-medium">30+ Members</span>.</>,
+            <>Collaborated with KIET E-CELL and signed an MoU for marketing and publicity of events.</>,
+            <>Organized workshop on <span className="text-white font-medium">Research-Build-Plan Entrepreneurship</span>.</>,
+            <>Head Instructor of <span className="text-white font-medium">Aurora Workshop (Drone Making Workshop)</span>.</>,
+            <>Founder and Manager of <span className="text-white font-medium">Plan for India Event</span> in association with PayTM.</>
+        ]
+    }
+];
+
 const publications = [
     { title: "Hybrid Deep Learning Approach for Product Categorization in E-Commerce", citations: "4", context: "AIP Conference Proceedings", link: "https://www.notion.so/chetanya-ev-project/Hybrid-Deep-Learning-Approach-for-Product-Categorization-in-E-Commerce-ecc5182d92d8437e83c59278440b93ff?source=copy_link" },
     { title: "Blockchain in Pharmaceutical Sector", citations: "29", context: "Applications of blockchain in healthcare", link: "https://www.notion.so/chetanya-ev-project/Blockchain-In-Pharmaceutical-Sector-048966ace1c24884b59ca471769b152a?source=copy_link" },
@@ -782,6 +816,30 @@ export default function Portfolio() {
                                             <h4 className="text-white font-medium text-lg">Dr. J. K. Pal Memorial Award</h4>
                                             <p className="text-sm text-orange-500 uppercase tracking-wider mb-2 font-bold">IEEE Delhi Section</p>
                                         </div>
+                                    </div>
+                                </div>
+                            </FadeIn>
+
+                            {/* Leadership Roles & Responsibilities */}
+                            <FadeIn delay={400}>
+                                <div className="bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 transition-colors">
+                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3">
+                                        <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400"><Users size={20} /></div>
+                                        Leadership Role & Responsibilities
+                                    </h3>
+                                    <div className="space-y-8">
+                                        {leadershipRoles.map((role, idx) => (
+                                            <div key={idx} className="relative pl-6 border-l border-neutral-800 hover:border-orange-500 transition-colors">
+                                                <h4 className="text-white font-medium text-lg leading-snug mb-3">{role.role}</h4>
+                                                <ul className="space-y-2">
+                                                    {role.points.map((point, pIdx) => (
+                                                        <li key={pIdx} className="text-neutral-400 text-sm leading-relaxed list-disc list-outside ml-4">
+                                                            {point}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </FadeIn>
