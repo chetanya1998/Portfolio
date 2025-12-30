@@ -36,7 +36,7 @@ const personalInfo = {
     email: "chetanyaved@gmail.com",
     phone: "+91 9354523282",
     location: "New Delhi, India",
-    tagline: "Building high-revenue AdTech products through automation, data pipelines, and user-centric strategy.",
+    tagline: "On a mission of exploring Intersection - How AI will shape the future of Products, Business and Customer Experience",
     about: "I am an Associate Product Manager with a unique blend of AdTech expertise and technical depth (Python, SQL, ML). Currently driving revenue growth at Unibots by building 0-1 tools and automation pipelines. My background in rigorous research enables me to solve complex problems with data-backed precision.",
     linkedin: "https://www.linkedin.com/in/chetanyaved/"
 };
