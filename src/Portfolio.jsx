@@ -23,7 +23,8 @@ import {
     MessageSquare,
     Send,
 
-    Download
+    Download,
+    Github
 } from 'lucide-react';
 
 // --- Data ---
@@ -133,6 +134,21 @@ const projects = [
 
 const leadership = [
     {
+        role: "1st Position",
+        org: "PM School Competition",
+        desc: "Secured 1st rank for the Finshots Product Case Study."
+    },
+    {
+        role: "1st Position",
+        org: "PM School Competition",
+        desc: "Secured 1st rank for the Elderfit Case Study."
+    },
+    {
+        role: "1st Position",
+        org: "Product Space - PM Hackathon 2.0",
+        desc: "Winner of the Product Management Hackathon."
+    },
+    {
         role: "Best Pitch Award",
         org: "Unibots",
         desc: "Awarded for building a product within 30 hours during a company-wide hackathon event."
@@ -145,10 +161,16 @@ const leadership = [
 ];
 
 const publications = [
-    "Blockchain Applications with 6G-Enabled IoT Smart City (Springer)",
-    "Digital Twin for Agriculture Disease Detection (Springer)",
-    "YOLO-Based Vehicle Detection & Counting (IEEE)",
-    "Blockchain in Industrial Revolution 5.0 (CRC Press)"
+    { title: "Hybrid Deep Learning Approach for Product Categorization in E-Commerce", citations: "4", context: "AIP Conference Proceedings", link: "https://www.notion.so/chetanya-ev-project/Hybrid-Deep-Learning-Approach-for-Product-Categorization-in-E-Commerce-ecc5182d92d8437e83c59278440b93ff?source=copy_link" },
+    { title: "Blockchain in Pharmaceutical Sector", citations: "29", context: "Applications of blockchain in healthcare", link: "https://www.notion.so/chetanya-ev-project/Blockchain-In-Pharmaceutical-Sector-048966ace1c24884b59ca471769b152a?source=copy_link" },
+    { title: "Emergence of Blockchain Applications with the 6G-Enabled IoT-Based Smart City", citations: "9", context: "Blockchain for 6G-Enabled Networks", link: "https://www.notion.so/chetanya-ev-project/Emergence-of-Blockchain-Applications-with-the-6G-Enabled-IoT-Based-Smart-City-491aa6ade0cb47bcbb305ee0b7199fe0?source=copy_link" },
+    { title: "YOLO-Based Vehicle Detection and Counting for Traffic Control on Highway", citations: "7", context: "2024 2nd Intl Conference on Computation", link: "https://www.notion.so/chetanya-ev-project/YOLO-Based-Vehicle-Detection-and-Counting-for-Traffic-Control-on-Highway-e26f7d4b62714dc2a6359f601025168a?source=copy_link" },
+    { title: "Prediction of Kyphosis Disease Using Random Forest and Gradient Boosting Algorithm", citations: "1", context: "2024 2nd Intl Conference on Computation", link: "https://www.notion.so/chetanya-ev-project/Prediction-of-Kyphosis-Disease-Using-Random-Forest-and-Gradient-Boosting-Algorithm-b6fa0b9a1eb0466b9d5c12c3d7910c65?source=copy_link" },
+    { title: "The Emergence of Blockchain Technology in Industrial Revolution 5.0", citations: "5", context: "Privacy Preservation of Genomic Data", link: "https://www.notion.so/chetanya-ev-project/The-Emergence-of-Blockchain-Technology-in-Industrial-Revolution-5-0-873d38fbbaa9448a84f6d8b8f3458f9e?source=copy_link" },
+    { title: "Decentralized and Secured Applications of Blockchain in the Biomedical Domain", citations: "3", context: "Applications of blockchain and big IoT", link: "https://www.notion.so/chetanya-ev-project/Decentralized-and-Secured-Applications-of-Blockchain-in-the-Biomedical-Domain-837c3b8ccb4e4f7f944547a5593850b0?source=copy_link" },
+    { title: "Digital Twin in Agriculture Sector: Detection of Disease Using Deep Learning", citations: "13", context: "Digital Twin Technology", link: "https://www.notion.so/chetanya-ev-project/Digital-Twin-in-Agriculture-Sector-Detection-of-Disease-Using-Deep-Learning-b10898d1bdd44c2bbf08bd22da1cc5fc?source=copy_link" },
+    { title: "Healthcare Solutions for the Next Generation", citations: "5", context: "Recent Trends in Blockchain", link: "https://www.notion.so/chetanya-ev-project/Healthcare-Solutions-for-the-Next-Generation-A-Useful-Explanation-from-the-User-s-Perspective-30045bb4d57242aa80b17f24f1f48383?source=copy_link" },
+    { title: "Decentralize Energy Network (DEN) In Assimilation with Blockchain", citations: "", context: "Research Paper", link: "https://www.notion.so/chetanya-ev-project/Decentralize-Energy-Network-DEN-In-Assimilation-with-Blockchain-30ee2cb6b83043fd9af417f8d78ca81b?source=copy_link" }
 ];
 
 const skills = {
@@ -409,6 +431,15 @@ export default function Portfolio() {
                                         <Linkedin size={20} />
                                         <span>LinkedIn</span>
                                     </a>
+                                    <a
+                                        href="https://github.com/chetanya1998"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="group flex items-center justify-center gap-3 px-8 py-4 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-neutral-900 text-base md:text-lg"
+                                    >
+                                        <Github size={20} />
+                                        <span>GitHub</span>
+                                    </a>
                                 </div>
                             </FadeIn>
                         </div>
@@ -534,8 +565,7 @@ export default function Portfolio() {
                             { title: "Spotify", subtitle: "Product Case Study", tags: ["Market Research", "Product Improvement", "Wireframes"], icon: "mouse-pointer", color: "from-green-500 to-green-700", link: "https://www.notion.so/chetanya-ev-project/Spotify-Product-Case-Study-479ca6717ced4a3fbabdd32fd818c16b?source=copy_link" },
                             { title: "Evernote", subtitle: "Product Case Study", tags: ["Product Improvement", "Product Design", "Wireframes"], icon: "file-text", color: "from-green-400 to-green-600", link: "https://www.notion.so/chetanya-ev-project/Evernote-Product-Case-Study-cb6574893d4d4991af869613af275105?source=copy_link" },
                             { title: "Google Maps", subtitle: "Improving Navigation", tags: ["Product Design", "Product Improvement"], icon: "map", color: "from-red-500 to-yellow-500" },
-                            { title: "Air Fryer", subtitle: "Product Market Research", tags: ["Market Research", "Data Analysis"], icon: "wind", color: "from-orange-100 to-orange-300" },
-                            { title: "EV Industry", subtitle: "Competitive Dynamics", tags: ["Market Research", "EV"], icon: "zap", color: "from-blue-500 to-purple-500" }
+                            { title: "EV Industry", subtitle: "Competitive Dynamics", tags: ["Market Research", "EV"], icon: "zap", color: "from-blue-500 to-purple-500", link: "https://www.notion.so/chetanya-ev-project/Analyzing-Competitive-Dynamics-and-Market-Opportunities-in-the-Global-Electric-Vehicle-EV-Industry-49cb52c1609c4ecbafa2c60d8f7dd048?source=copy_link" }
                         ].map((item, idx) => (
                             <FadeIn key={idx} delay={idx * 50}>
                                 <a
@@ -591,21 +621,14 @@ export default function Portfolio() {
                             <div>
                                 <SectionHeader num="4" title="Publications" />
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {[
-                                        { title: "Blockchain in pharmaceutical sector", citations: "29", context: "Applications of blockchain in healthcare" },
-                                        { title: "Healthcare solutions for smart era: An useful explanation from user's perspective", citations: "25", context: "Recent trends in blockchain security" },
-                                        { title: "Digital twin in agriculture sector: Detection of disease using deep learning", citations: "13", context: "Digital Twin Technology" },
-                                        { title: "Emergence of Blockchain Applications with the 6G-Enabled IoT-Based Smart City", citations: "9", context: "Blockchain for 6G-Enabled Networks" },
-                                        { title: "YOLO-Based Vehicle Detection and Counting for Traffic Control on Highway", citations: "7", context: "2024 2nd Intl Conference on Computation" },
-                                        { title: "Emergence of Big Data and Blockchain Technology in Smart City", citations: "6", context: "Convergence of IoT, Blockchain" },
-                                        { title: "The emergence of blockchain technology in industrial revolution 5.0", citations: "5", context: "Privacy Preservation of Genomic Data" },
-                                        { title: "Healthcare Solutions for the Next Generation", citations: "5", context: "Recent Trends in Blockchain" },
-                                        { title: "Hybrid deep learning approach for product categorization in e-commerce", citations: "4", context: "AIP Conference Proceedings" },
-                                        { title: "Decentralized and secured applications of blockchain in the biomedical domain", citations: "3", context: "Applications of blockchain and big IoT" },
-                                        { title: "Prediction of Kyphosis Disease Using Random Forest and Gradient Boosting Algorithm", citations: "1", context: "2024 2nd Intl Conference on Computation" }
-                                    ].map((pub, idx) => (
+                                    {publications.map((pub, idx) => (
                                         <FadeIn key={idx} delay={idx * 100}>
-                                            <div className="h-full p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative overflow-hidden">
+                                            <a
+                                                href={pub.link}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="h-full p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative overflow-hidden cursor-pointer"
+                                            >
                                                 <div className="flex justify-between items-start mb-4">
                                                     <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors shrink-0">
                                                         <BookOpen size={18} />
@@ -616,11 +639,14 @@ export default function Portfolio() {
                                                         </span>
                                                     )}
                                                 </div>
-                                                <h4 className="text-white font-medium text-lg mb-2 leading-snug group-hover:text-orange-100 transition-colors line-clamp-3">{pub.title}</h4>
+                                                <div className="flex items-start justify-between gap-2">
+                                                    <h4 className="text-white font-medium text-lg mb-2 leading-snug group-hover:text-orange-100 transition-colors line-clamp-3">{pub.title}</h4>
+                                                    <ArrowUpRight size={16} className="text-neutral-600 group-hover:text-orange-500 shrink-0 transition-colors" />
+                                                </div>
                                                 <p className="text-neutral-500 text-sm mt-auto pt-4 border-t border-neutral-800 line-clamp-2">
                                                     {pub.context}
                                                 </p>
-                                            </div>
+                                            </a>
                                         </FadeIn>
                                     ))}
                                 </div>
