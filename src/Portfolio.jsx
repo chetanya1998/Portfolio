@@ -524,21 +524,27 @@ export default function Portfolio() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
-                            { title: "Bumble Dating App", subtitle: "Sentiment Analysis", tags: ["Customer Review Analysis", "Market Research", "Data Analysis"], icon: "smartphone", color: "from-yellow-400 to-yellow-600" },
-                            { title: "Third Wave Coffee", subtitle: "Capstone Project", tags: ["Customer Acquisition", "Adoption", "Wireframes"], icon: "coffee", color: "from-amber-700 to-amber-900" },
-                            { title: "FitTrack", subtitle: "PRD", tags: ["PRD", "Product Design", "Product Improvement"], icon: "activity", color: "from-emerald-500 to-emerald-700" },
-                            { title: "FinBot", subtitle: "Personal Finance Manager", tags: ["Product Design", "Wireframes", "Fintech"], icon: "dollar-sign", color: "from-green-600 to-green-800" },
-                            { title: "ATM for the Elderly", subtitle: "Design Case Study", tags: ["Market Research", "Product Improvement"], icon: "credit-card", color: "from-blue-600 to-blue-800" },
-                            { title: "Elderfit", subtitle: "Product Case Study", tags: ["Product Innovation", "Product Design", "Wireframes"], icon: "heart", color: "from-red-500 to-red-700" },
-                            { title: "Finshots", subtitle: "Product Case Study", tags: ["Fintech", "Product Improvement", "Wireframes"], icon: "trending-up", color: "from-blue-400 to-blue-600" },
-                            { title: "Spotify", subtitle: "Product Case Study", tags: ["Market Research", "Product Improvement", "Wireframes"], icon: "mouse-pointer", color: "from-green-500 to-green-700" },
-                            { title: "Evernote", subtitle: "Product Case Study", tags: ["Product Improvement", "Product Design", "Wireframes"], icon: "file-text", color: "from-green-400 to-green-600" },
+                            { title: "Bumble Dating App", subtitle: "Sentiment Analysis", tags: ["Customer Review Analysis", "Market Research", "Data Analysis"], icon: "smartphone", color: "from-yellow-400 to-yellow-600", link: "https://www.notion.so/chetanya-ev-project/Bumble-Dating-App-Sentiment-Analysis-141c9bd6786e80468013d1fcb2b7641d?source=copy_link" },
+                            { title: "Third Wave Coffee", subtitle: "Capstone Project", tags: ["Customer Acquisition", "Adoption", "Wireframes"], icon: "coffee", color: "from-amber-700 to-amber-900", link: "https://www.notion.so/chetanya-ev-project/Third-Wave-Coffee-Capstone-Project-111c9bd6786e8037896ef9de20ad38ce?source=copy_link" },
+                            { title: "FitTrack", subtitle: "PRD", tags: ["PRD", "Product Design", "Product Improvement"], icon: "activity", color: "from-emerald-500 to-emerald-700", link: "https://www.notion.so/chetanya-ev-project/FitTrack-PRD-a018727168574bce8994ba2778171916?source=copy_link" },
+                            { title: "FinBot", subtitle: "Personal Finance Manager", tags: ["Product Design", "Wireframes", "Fintech"], icon: "dollar-sign", color: "from-green-600 to-green-800", link: "https://www.notion.so/chetanya-ev-project/FinBot-Personal-Finance-Manager-107c9bd6786e80d288cde7bb1542750c?source=copy_link" },
+                            { title: "ATM for the Elderly", subtitle: "Design Case Study", tags: ["Market Research", "Product Improvement"], icon: "credit-card", color: "from-blue-600 to-blue-800", link: "https://www.notion.so/chetanya-ev-project/Case-Study-Design-an-ATM-for-the-Elderly-938aaffea94a4bb8a209fdb2c1c4ca43?source=copy_link" },
+                            { title: "Elderfit", subtitle: "Product Case Study", tags: ["Product Innovation", "Product Design", "Wireframes"], icon: "heart", color: "from-red-500 to-red-700", link: "https://www.notion.so/chetanya-ev-project/Elderfit-Product-Case-Study-ccfbffd632db4907889bdee7032844a2?source=copy_link" },
+                            { title: "Finshots", subtitle: "Product Case Study", tags: ["Fintech", "Product Improvement", "Wireframes"], icon: "trending-up", color: "from-blue-400 to-blue-600", link: "https://www.notion.so/chetanya-ev-project/Finshots-Product-Case-Study-d19d44940d3f4f18b01bbc8be558bc37?source=copy_link" },
+                            { title: "Spotify", subtitle: "Product Case Study", tags: ["Market Research", "Product Improvement", "Wireframes"], icon: "mouse-pointer", color: "from-green-500 to-green-700", link: "https://www.notion.so/chetanya-ev-project/Spotify-Product-Case-Study-479ca6717ced4a3fbabdd32fd818c16b?source=copy_link" },
+                            { title: "Evernote", subtitle: "Product Case Study", tags: ["Product Improvement", "Product Design", "Wireframes"], icon: "file-text", color: "from-green-400 to-green-600", link: "https://www.notion.so/chetanya-ev-project/Evernote-Product-Case-Study-cb6574893d4d4991af869613af275105?source=copy_link" },
                             { title: "Google Maps", subtitle: "Improving Navigation", tags: ["Product Design", "Product Improvement"], icon: "map", color: "from-red-500 to-yellow-500" },
                             { title: "Air Fryer", subtitle: "Product Market Research", tags: ["Market Research", "Data Analysis"], icon: "wind", color: "from-orange-100 to-orange-300" },
                             { title: "EV Industry", subtitle: "Competitive Dynamics", tags: ["Market Research", "EV"], icon: "zap", color: "from-blue-500 to-purple-500" }
                         ].map((item, idx) => (
                             <FadeIn key={idx} delay={idx * 50}>
-                                <div className="group h-full bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-900/5 transition-all duration-300 flex flex-col">
+                                <a
+                                    href={item.link || undefined}
+                                    target={item.link ? "_blank" : undefined}
+                                    rel={item.link ? "noreferrer" : undefined}
+                                    className={`group h-full bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-900/5 transition-all duration-300 flex flex-col ${item.link ? 'cursor-pointer' : 'cursor-default'}`}
+                                    onClick={(e) => !item.link && e.preventDefault()}
+                                >
                                     {/* Thumbnail Placeholder */}
                                     <div className={`h-40 w-full bg-gradient-to-br ${item.color} relative p-6 flex flex-col justify-between group-hover:scale-105 transition-transform duration-500`}>
                                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
@@ -564,11 +570,11 @@ export default function Portfolio() {
                                             ))}
                                         </div>
 
-                                        <div className="mt-4 pt-4 border-t border-neutral-800 flex items-center gap-2 text-sm text-orange-500 font-medium opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+                                        <div className={`mt-4 pt-4 border-t border-neutral-800 flex items-center gap-2 text-sm text-orange-500 font-medium transition-all ${item.link ? 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0' : 'hidden'}`}>
                                             Read Case Study <ArrowRight size={14} />
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </FadeIn>
                         ))}
                     </div>
