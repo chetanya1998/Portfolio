@@ -69,7 +69,7 @@ const experiences = [
     {
         company: "Product Space",
         role: "Product Management Fellow",
-        period: "Aug 2024 — Present",
+        period: "Aug 2024 — Dec 2024",
         type: "Remote",
         achievements: [
             "Gained hands-on experience addressing user pain points and potential drop-offs through usability testing of various products.",
@@ -96,9 +96,9 @@ const experiences = [
         period: "July 2021 — July 2023",
         type: "New Delhi, India",
         achievements: [
-            "Prepared full-time for UPSC Civil Services while publishing 10 research papers.",
-            "Works received over 100+ citations in various journals.",
-            "Presented research at two IEEE conferences and served as a conference paper reviewer."
+            "Prepared for India Civil Services exam for 2 Years.",
+            "Presented 2 Research Papers in IEEE Conference (InCACCT2024).",
+            "Published 10 Research Papers & Book Chapters in Journals & Academic Books, which have received over 100+ citations in various Journals and academic books."
         ],
         tags: ["Academic Writing", "Deep Learning", "Data Analysis"]
     }
