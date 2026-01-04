@@ -236,6 +236,7 @@ const publications = [
 
 const skills = {
     product: ["Roadmapping", "PRDs", "KPIs", "GTM Strategy", "Pricing", "User Research"],
+    adtech: ["Google Ads", "AdSense (RSOC/AFS)", "Campaign Setup", "Policy Compliance"],
     technical: ["Python", "SQL", "REST APIs", "Streamlit", "Flask", "ML Basics"],
     tools: ["Jira", "Linear", "Git", "Power BI", "Google Analytics", "New Relic"]
 };
