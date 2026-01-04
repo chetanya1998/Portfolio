@@ -24,7 +24,9 @@ import {
     Send,
 
     Download,
-    Github
+    Github,
+    ChevronDown,
+    Quote
 } from 'lucide-react';
 
 // --- Data ---
@@ -555,6 +557,19 @@ export default function Portfolio() {
                         <div className="border-t border-neutral-800" />
                     </div>
                 </section>
+
+                {/* Quote Section */}
+                <FadeIn delay={200}>
+                    <section className="py-12 md:py-20 flex justify-center">
+                        <div className="max-w-4xl text-center relative px-6">
+                            <Quote className="text-neutral-800 absolute -top-8 -left-4 md:-left-12 transform -scale-x-100" size={64} />
+                            <h2 className="text-2xl md:text-4xl font-serif italic text-neutral-400 leading-normal md:leading-relaxed">
+                                "The best way to predict the future is to create it."
+                            </h2>
+                            <p className="mt-6 text-neutral-500 uppercase tracking-widest text-sm font-bold">— Peter Drucker</p>
+                        </div>
+                    </section>
+                </FadeIn>
 
                 {/* Projects Carousel */}
                 <section id="projects" className="py-16 md:py-24">
