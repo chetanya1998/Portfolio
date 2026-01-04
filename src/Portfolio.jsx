@@ -79,7 +79,7 @@ const experiences = [
         tags: ["User Research", "Usability Testing", "Product Strategy"]
     },
     {
-        company: "Unibots",
+        company: "Stellar Search",
         role: "Research Associate",
         period: "July 2023 — July 2024",
         type: "Gurugram, India",
