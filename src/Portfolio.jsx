@@ -58,23 +58,35 @@ const experiences = [
         period: "Dec 2024 — Present",
         type: "New Delhi, India",
         achievements: [
-            "Built 0-1 Keyword Research Tool reducing research time by 70-80% and enabling high-RPC campaigns contributing 10-15% revenue.",
-            "Managed 5+ revenue products in the New Product Development team contributing 30-35% company revenue.",
-            "Delivered 7+ Ads/AdSense features improving media-buyer workflow efficiency by 30%.",
-            "Designed all-in-one campaign creation system reducing launch time by 60-70% with automation and policy checks.",
-            "Built content-gen and QA automation pipelines reducing turnaround by 70-80%."
+            <>Owned end-to-end product execution for multiple internal dashboards & tools, reporting directly to the CEO/founders and leading cross-functional delivery with a <span className="text-white font-medium">team of 5</span>(engineering + QA).</>,
+            <>Built 0→1 Keyword Research Tool reducing research time by <span className="text-white font-medium">70–80%</span> of Media-Buyers and enabling high-RPC campaigns contributing <span className="text-white font-medium">10–15% revenue</span>.</>,
+            <>Managed 5+ <span className="text-white font-medium">revenue products</span> in the New Product Development team contributing <span className="text-white font-medium">30–35%</span> company revenue.</>,
+            <>Designed all-in-one campaign creation system reducing launch time by <span className="text-white font-medium">50–60%</span> with automation and policy checks.</>,
+            "Developed business proposals for the CEO to launch intent-based advertising campaigns for brands, authoring 5+ case studies and validating new campaign models across domains."
         ],
         tags: ["Product Management", "AdTech", "0-1 Build", "Automation"]
     },
     {
-        company: "Stellar Search",
+        company: "Product Space",
+        role: "Product Management Fellow",
+        period: "Aug 2024 — Present",
+        type: "Remote",
+        achievements: [
+            "Gained hands-on experience addressing user pain points and potential drop-offs through usability testing of various products.",
+            "Conducted 30+ User Interviews for Product Improvement, Design & Teardowns to enhance user experiences.",
+            "Led a team of 5 experienced individuals for capstone and product teardowns, also successfully worked upon 10+ Product Cases."
+        ],
+        tags: ["User Research", "Usability Testing", "Product Strategy"]
+    },
+    {
+        company: "Unibots",
         role: "Research Associate",
         period: "July 2023 — July 2024",
         type: "Gurugram, India",
         achievements: [
-            "Supported business development and talent mapping initiatives contributing to approximately 20% revenue growth.",
-            "Executed CXO-level research across Healthcare, Pharma, EPC, Energy, Auto and Fintech mandates.",
-            "Built databases of 400+ Tier-1 automobile companies and delivered in-depth industry research."
+            <>Partnered with <span className="text-white font-medium">Principals</span> and <span className="text-white font-medium">Senior Consultants</span> to understand client needs and craft tailored search strategies..</>,
+            <>Conducted market research under <span className="text-white font-medium">Chairperson’s office</span> for business development mandates in <span className="text-white font-medium">Fintech Industry</span> which contributed to <span className="text-white font-medium">10% growth in Clientele</span>.</>,
+            <>Implementing strategic research on business development mandates contributed to <span className="text-white font-medium">20% in revenue growth</span> in FY2023-24.</>
         ],
         tags: ["Market Research", "Business Development", "Strategy"]
     },
@@ -809,7 +821,7 @@ export default function Portfolio() {
                             {/* Initiatives & Talks - w/ Carousel */}
                             <div>
                                 <SectionHeader num="5" title="Initiatives & Talks" />
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div className="flex flex-col gap-4">
                                     {[
                                         {
                                             title: "IEEE - INCACCT’23 & 24",
@@ -830,16 +842,32 @@ export default function Portfolio() {
                                             link: "#"
                                         }
                                     ].map((item, idx) => (
-                                        <FadeIn key={idx} delay={idx * 100} className="h-full">
-                                            {/* Standardized to 3-column layout */}
-                                            <div className="h-[320px] p-5 md:p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative overflow-hidden">
-                                                <div className="absolute top-4 right-4 text-neutral-600 group-hover:text-orange-500 transition-colors">
-                                                    <ArrowUpRight size={16} />
+                                        <FadeIn key={idx} delay={idx * 100}>
+                                            <a
+                                                href={item.link}
+                                                target={item.link.startsWith('http') ? "_blank" : "_self"}
+                                                rel="noreferrer"
+                                                className="group block w-full text-left"
+                                            >
+                                                <div className="p-6 md:p-8 bg-neutral-900 border border-neutral-800 rounded-2xl md:rounded-3xl hover:border-orange-500/30 hover:bg-neutral-800 transition-all duration-300 flex flex-col md:flex-row gap-6 md:items-start relative overflow-hidden">
+
+                                                    {/* Arrow Icon */}
+                                                    <div className="absolute top-6 right-6 text-neutral-600 group-hover:text-orange-500 transition-colors">
+                                                        <ArrowUpRight size={20} />
+                                                    </div>
+
+                                                    {/* Left: Role & Title */}
+                                                    <div className="md:w-[35%] flex-shrink-0 pr-8">
+                                                        <h4 className="text-white font-medium text-lg md:text-xl mb-3 group-hover:text-orange-100 transition-colors">{item.title}</h4>
+                                                        <p className="text-orange-500 text-xs uppercase tracking-wider font-bold">{item.role}</p>
+                                                    </div>
+
+                                                    {/* Right: Desc */}
+                                                    <div className="md:w-[65%] border-t md:border-t-0 md:border-l border-neutral-800 pt-4 md:pt-0 md:pl-8">
+                                                        <p className="text-neutral-300 text-sm md:text-base leading-relaxed">{item.desc}</p>
+                                                    </div>
                                                 </div>
-                                                <h4 className="text-white font-medium text-lg mb-1 pr-6 truncate">{item.title}</h4>
-                                                <p className="text-orange-500 text-xs uppercase tracking-wider mb-2 font-bold truncate">{item.role}</p>
-                                                <p className="text-neutral-400 text-sm leading-relaxed mt-auto border-t border-neutral-800 pt-3 flex-1 line-clamp-4 text-ellipsis overflow-hidden">{item.desc}</p>
-                                            </div>
+                                            </a>
                                         </FadeIn>
                                     ))}
                                 </div>
