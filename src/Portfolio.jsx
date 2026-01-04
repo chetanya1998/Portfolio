@@ -26,7 +26,8 @@ import {
     Download,
     Github,
     ChevronDown,
-    Quote
+    Quote,
+    ExternalLink
 } from 'lucide-react';
 
 // --- Data ---
