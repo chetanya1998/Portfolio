@@ -115,11 +115,17 @@ const projects = [
         icon: <Layout className="text-blue-400" size={28} />
     },
     {
-        title: "Web Traffic Classifier",
-        type: "Machine Learning",
+        title: "Web Traffic Classification",
+        type: "Flask + ML Service",
         focus: "Bot Detection",
         outcome: "High Accuracy",
+        github: "https://github.com/chetanya1998", // Placeholder as requested
         desc: "Implemented an ML pipeline to classify bot vs human traffic using Logistic Regression, Random Forest, and Isolation Forest.",
+        structuredDesc: [
+            { label: "Problem", text: "Raw logs are noisy; stealth bots evade single models and cause false positives." },
+            { label: "Solution", text: "Built Flask assessment API with 3-model benchmark (LogReg, RF, IsoForest) & traffic simulator." },
+            { label: "Impact", text: "Delivered deployable service + 3 model baselines + repeatable evaluation pipeline." }
+        ],
         icon: <Cpu className="text-purple-400" size={28} />
     },
     {
@@ -558,8 +564,20 @@ export default function Portfolio() {
                         {projects.map((project, idx) => (
                             <FadeIn key={idx} delay={idx * 100}>
                                 <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-[500px] flex flex-col overflow-hidden">
-                                    <div className="absolute top-6 right-6 md:top-8 md:right-8 p-3 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 group-hover:text-white group-hover:border-orange-500/50 group-hover:scale-110 transition-all duration-300">
-                                        <ArrowUpRight size={20} />
+                                    <div className="absolute top-6 right-6 md:top-8 md:right-8 flex gap-3">
+                                        {project.github && (
+                                            <a
+                                                href={project.github}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="p-3 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 hover:text-white hover:border-orange-500/50 hover:scale-110 transition-all duration-300 group/github"
+                                            >
+                                                <Github size={20} />
+                                            </a>
+                                        )}
+                                        <div className="p-3 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 group-hover:text-white group-hover:border-orange-500/50 group-hover:scale-110 transition-all duration-300">
+                                            <ArrowUpRight size={20} />
+                                        </div>
                                     </div>
 
                                     <div className="mb-6 md:mb-8">
@@ -570,20 +588,33 @@ export default function Portfolio() {
                                         <p className="font-mono text-base text-orange-500">{project.type}</p>
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                                        <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 min-w-0">
-                                            <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Focus</span>
-                                            <span className="text-neutral-200 font-medium text-base md:text-lg break-words line-clamp-2">{project.focus}</span>
+                                    {project.structuredDesc ? (
+                                        <div className="space-y-4 mt-auto flex-1">
+                                            {project.structuredDesc.map((item, i) => (
+                                                <div key={i}>
+                                                    <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider block mb-1">{item.label}</span>
+                                                    <p className="text-neutral-300 text-sm md:text-base leading-relaxed">{item.text}</p>
+                                                </div>
+                                            ))}
                                         </div>
-                                        <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 min-w-0">
-                                            <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Result</span>
-                                            <span className="text-green-400 font-medium text-base md:text-lg break-words line-clamp-2">{project.outcome}</span>
-                                        </div>
-                                    </div>
+                                    ) : (
+                                        <>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                                                <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 min-w-0">
+                                                    <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Focus</span>
+                                                    <span className="text-neutral-200 font-medium text-base md:text-lg break-words line-clamp-2">{project.focus}</span>
+                                                </div>
+                                                <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 min-w-0">
+                                                    <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Result</span>
+                                                    <span className="text-green-400 font-medium text-base md:text-lg break-words line-clamp-2">{project.outcome}</span>
+                                                </div>
+                                            </div>
 
-                                    <p className="text-neutral-300 leading-relaxed text-base md:text-lg border-l-2 border-neutral-700 pl-6 group-hover:border-orange-500/50 transition-colors mt-auto flex-1 line-clamp-4 text-ellipsis overflow-hidden">
-                                        {project.desc}
-                                    </p>
+                                            <p className="text-neutral-300 leading-relaxed text-base md:text-lg border-l-2 border-neutral-700 pl-6 group-hover:border-orange-500/50 transition-colors mt-auto flex-1 line-clamp-4 text-ellipsis overflow-hidden">
+                                                {project.desc}
+                                            </p>
+                                        </>
+                                    )}
                                 </div>
                             </FadeIn>
                         ))}
