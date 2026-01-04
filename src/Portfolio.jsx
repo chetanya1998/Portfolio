@@ -46,7 +46,7 @@ const personalInfo = {
 const stats = [
     { label: "Experience", value: "2+ Years" },
     { label: "Revenue Impact", value: "30-40%" },
-    { label: "Efficiency Boost", value: "80%" },
+    { label: "Efficiency Boost", value: "20-30%" },
     { label: "Citations", value: "100+" },
 ];
 
@@ -79,7 +79,7 @@ const experiences = [
     },
     {
         company: "UPSC Preparation & Research",
-        role: "Academic Researcher",
+        role: "UPSC Preparation & Academic Researcher",
         period: "July 2021 — July 2023",
         type: "New Delhi, India",
         achievements: [
@@ -156,6 +156,20 @@ const projects = [
             { label: "JTBD", text: "Monitor traffic, quarantine offenders, simulate attacks, and retrain models." }
         ],
         icon: <Code className="text-red-400" size={28} />
+    },
+    {
+        title: "Papersmith",
+        type: "AI Research Assistant",
+        focus: "Productivity",
+        outcome: "10+ AI Outputs",
+        demo: "https://paper-smith-e7684bce.base44.app/login?from_url=https%3A%2F%2Fpaper-smith-e7684bce.base44.app%2F",
+        desc: "AI platform for researchers to extract summaries, methodologies, and actionable ideas from dense PDFs.",
+        structuredDesc: [
+            { label: "Problem", text: "Researchers spend excessive time extracting methodologies and ideas from dense PDFs without an organized workflow." },
+            { label: "Solution", text: "Shipped core workflows (PDF upload, dashboards) and 10+ AI outputs (summary, method, mind maps) with offline caching." },
+            { label: "Users", text: "Researchers summarizing contributions; Students creating study assets; Builders finding MVP ideas." }
+        ],
+        icon: <BookOpen className="text-teal-400" size={28} />
     }
 ];
 
@@ -235,10 +249,10 @@ const publications = [
 ];
 
 const skills = {
-    product: ["Roadmapping", "PRDs", "KPIs", "GTM Strategy", "Pricing", "User Research"],
-    adtech: ["Google Ads", "AdSense (RSOC/AFS)", "Campaign Setup", "Policy Compliance"],
-    technical: ["Python", "SQL", "REST APIs", "Streamlit", "Flask", "ML Basics"],
-    tools: ["Jira", "Linear", "Git", "Power BI", "Google Analytics", "New Relic"]
+    product: ["User Research", "UI/UX Development", "Business & Marketing Modelling", "PRD Documentation", "AI-Powered Prototyping"],
+    technical: ["Zoho Projects", "Linear", "Github", "Tableau", "PowerBI", "Google Suite", "Postman", "Google Analytics", "BASE44", "Codex", "Google Ads", "Google Adsense", "Firebase", "Notion"],
+    // Keeping tools empty/merged as user requested replacement
+    tools: []
 };
 
 
@@ -455,7 +469,7 @@ export default function Portfolio() {
                             <FadeIn delay={100}>
                                 <h1 className="text-4xl sm:text-5xl md:text-8xl font-medium text-white leading-[1.1] md:leading-[0.9] tracking-tight mb-8">
                                     {personalInfo.name}<span className="text-orange-500">.</span> <br />
-                                    <span className="text-neutral-400 text-2xl sm:text-3xl md:text-5xl block mt-5 min-h-[3em] md:min-h-[2.5em] font-bold">
+                                    <span className="text-neutral-400 text-2xl sm:text-3xl md:text-5xl block mt-5 min-h-[3em] md:min-h-[2.5em]">
                                         <TypewriterLine items={heroTypewriterItems} />
                                     </span>
                                 </h1>
@@ -486,7 +500,7 @@ export default function Portfolio() {
                                     </div>
 
                                     {/* Social Links */}
-                                    <div className="flex flex-wrap gap-3">
+                                    <div className="grid grid-cols-3 gap-3 w-full md:w-auto">
                                         <a
                                             href="https://scholar.google.com/citations?user=OqCUANwAAAAJ&hl=en"
                                             target="_blank"
@@ -620,20 +634,8 @@ export default function Portfolio() {
                         {projects.map((project, idx) => (
                             <FadeIn key={idx} delay={idx * 100}>
                                 <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-full flex flex-col overflow-hidden">
-                                    <div className="absolute top-6 right-6 md:top-8 md:right-8 flex gap-3">
-                                        {project.github && (
-                                            <a
-                                                href={project.github}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="p-3 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 hover:text-white hover:border-orange-500/50 hover:scale-110 transition-all duration-300 group/github"
-                                            >
-                                                <Github size={20} />
-                                            </a>
-                                        )}
-                                        <div className="p-3 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 group-hover:text-white group-hover:border-orange-500/50 group-hover:scale-110 transition-all duration-300">
-                                            <ArrowUpRight size={20} />
-                                        </div>
+                                    <div className="absolute top-6 right-6 md:top-8 md:right-8 flex gap-3 opacity-0">
+                                        {/* Hidden as requested */}
                                     </div>
 
                                     <div className="mb-6 md:mb-8">
@@ -692,7 +694,7 @@ export default function Portfolio() {
                             { title: "Finshots", subtitle: "Product Case Study", tags: ["Fintech", "Product Improvement", "Wireframes"], icon: "trending-up", color: "from-blue-400 to-blue-600", link: "https://www.notion.so/chetanya-ev-project/Finshots-Product-Case-Study-d19d44940d3f4f18b01bbc8be558bc37?source=copy_link" },
                             { title: "Spotify", subtitle: "Product Case Study", tags: ["Market Research", "Product Improvement", "Wireframes"], icon: "mouse-pointer", color: "from-green-500 to-green-700", link: "https://www.notion.so/chetanya-ev-project/Spotify-Product-Case-Study-479ca6717ced4a3fbabdd32fd818c16b?source=copy_link" },
                             { title: "Evernote", subtitle: "Product Case Study", tags: ["Product Improvement", "Product Design", "Wireframes"], icon: "file-text", color: "from-green-400 to-green-600", link: "https://www.notion.so/chetanya-ev-project/Evernote-Product-Case-Study-cb6574893d4d4991af869613af275105?source=copy_link" },
-                            { title: "Google Maps", subtitle: "Improving Navigation", tags: ["Product Design", "Product Improvement"], icon: "map", color: "from-red-500 to-yellow-500" },
+                            { title: "Google Maps", subtitle: "Improving Navigation", tags: ["Product Design", "Product Improvement"], icon: "map", color: "from-red-500 to-yellow-500", link: "https://chetanya-ev-project.notion.site/Google-Maps-Improving-Navigation-Screens-12fe6f8166df43c1948f3ea9b13dc327" },
                             { title: "EV Industry", subtitle: "Competitive Dynamics", tags: ["Market Research", "EV"], icon: "zap", color: "from-blue-500 to-purple-500", link: "https://www.notion.so/chetanya-ev-project/Analyzing-Competitive-Dynamics-and-Market-Opportunities-in-the-Global-Electric-Vehicle-EV-Industry-49cb52c1609c4ecbafa2c60d8f7dd048?source=copy_link" }
                         ].map((item, idx) => (
                             <FadeIn key={idx} delay={idx * 50}>
@@ -783,7 +785,7 @@ export default function Portfolio() {
                             {/* Initiatives & Talks - w/ Carousel */}
                             <div>
                                 <SectionHeader num="5" title="Initiatives & Talks" />
-                                <Carousel>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {[
                                         {
                                             title: "IEEE - INCACCT’23 & 24",
@@ -804,7 +806,7 @@ export default function Portfolio() {
                                             link: "#"
                                         }
                                     ].map((item, idx) => (
-                                        <FadeIn key={idx} delay={idx * 100} className="snap-center min-w-[70vw] md:min-w-0 md:basis-[calc(33.33%-1rem)] shrink-0 h-full">
+                                        <FadeIn key={idx} delay={idx * 100} className="h-full">
                                             {/* Standardized to 3-column layout */}
                                             <div className="h-[320px] p-5 md:p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative overflow-hidden">
                                                 <div className="absolute top-4 right-4 text-neutral-600 group-hover:text-orange-500 transition-colors">
@@ -816,12 +818,12 @@ export default function Portfolio() {
                                             </div>
                                         </FadeIn>
                                     ))}
-                                </Carousel>
+                                </div>
                             </div>
 
                             {/* Education */}
                             <div>
-                                <SectionHeader num="5" title="Education" />
+                                <SectionHeader num="6" title="Education" />
                                 <FadeIn>
                                     <div className="p-6 md:p-8 bg-neutral-900/30 rounded-3xl border border-neutral-800 hover:border-neutral-700 transition-colors">
                                         <div className="flex flex-col sm:flex-row items-start gap-6">
