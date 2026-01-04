@@ -54,38 +54,39 @@ const stats = [
 const experiences = [
     {
         company: "Unibots",
-        role: "Associate Product Manager/Assistant Product Manager",
+        role: "Associate Product Manager",
         period: "Dec 2024 — Present",
         type: "New Delhi, India",
         achievements: [
-            <>Owned end-to-end product execution for multiple internal dashboards & tools, reporting directly to the CEO/founders and leading cross-functional delivery with a <span className="text-white font-medium">team of 5</span>(engineering + QA).</>,
-            <>Built 0→1 Keyword Research Tool reducing research time by <span className="text-white font-medium">70–80%</span> of Media-Buyers and enabling high-RPC campaigns contributing <span className="text-white font-medium">10–15% revenue</span>.</>,
-            <>Managed 5+ <span className="text-white font-medium">revenue products</span> in the New Product Development team contributing <span className="text-white font-medium">30–35%</span> company revenue.</>,
-            <>Designed all-in-one campaign creation system reducing launch time by <span className="text-white font-medium">50–60%</span> with automation and policy checks.</>,
-            "Developed business proposals for the CEO to launch intent-based advertising campaigns for brands, authoring 5+ case studies and validating new campaign models across domains."
+            "Built 0-1 Keyword Research Tool reducing research time by 70-80% and enabling high-RPC campaigns contributing 10-15% revenue.",
+            "Managed 5+ revenue products in the New Product Development team contributing 30-35% company revenue.",
+            "Delivered 7+ Ads/AdSense features improving media-buyer workflow efficiency by 30%.",
+            "Designed all-in-one campaign creation system reducing launch time by 60-70% with automation and policy checks.",
+            "Built content-gen and QA automation pipelines reducing turnaround by 70-80%."
         ],
         tags: ["Product Management", "AdTech", "0-1 Build", "Automation"]
     },
     {
         company: "Stellar Search",
-        role: "Research Associate / Associate",
+        role: "Research Associate",
         period: "July 2023 — July 2024",
         type: "Gurugram, India",
         achievements: [
-            <>Partnered with <span className="text-white font-medium">Principals</span> and <span className="text-white font-medium">Senior Consultants</span> to understand client needs and craft tailored search strategies..</>,
-            <>Conducted market research under <span className="text-white font-medium">Chairperson’s office</span> for business development mandates in <span className="text-white font-medium">Fintech Industry</span> which contributed to <span className="text-white font-medium">10% growth in Clientele</span>.</>,
-            <>Implementing strategic research on business development mandates contributed to <span className="text-white font-medium">20% in revenue growth</span> in FY2023-24.</>
+            "Supported business development and talent mapping initiatives contributing to approximately 20% revenue growth.",
+            "Executed CXO-level research across Healthcare, Pharma, EPC, Energy, Auto and Fintech mandates.",
+            "Built databases of 400+ Tier-1 automobile companies and delivered in-depth industry research."
         ],
         tags: ["Market Research", "Business Development", "Strategy"]
     },
     {
         company: "UPSC Preparation & Research",
-        role: "Career Break | UPSC Preparation & Research Work",
+        role: "UPSC Preparation & Academic Researcher",
         period: "July 2021 — July 2023",
         type: "New Delhi, India",
         achievements: [
-            <>Prepared full-time for UPSC while publishing <span className="text-white font-medium">10 research papers</span> with <span className="text-white font-medium">100+ citations</span>.</>,
-            <>Presented research at <span className="text-white font-medium">two IEEE conferences</span> and served as a <span className="text-white font-medium">conference paper reviewer</span>.</>
+            "Prepared full-time for UPSC Civil Services while publishing 10 research papers.",
+            "Works received over 100+ citations in various journals.",
+            "Presented research at two IEEE conferences and served as a conference paper reviewer."
         ],
         tags: ["Academic Writing", "Deep Learning", "Data Analysis"]
     }
@@ -831,13 +832,13 @@ export default function Portfolio() {
                                     ].map((item, idx) => (
                                         <FadeIn key={idx} delay={idx * 100} className="h-full">
                                             {/* Standardized to 3-column layout */}
-                                            <div className="h-[320px] p-5 md:p-6 bg-neutral-900 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-800 transition-all duration-300 flex flex-col group relative overflow-hidden">
+                                            <div className="h-[320px] p-5 md:p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative overflow-hidden">
                                                 <div className="absolute top-4 right-4 text-neutral-600 group-hover:text-orange-500 transition-colors">
                                                     <ArrowUpRight size={16} />
                                                 </div>
                                                 <h4 className="text-white font-medium text-lg mb-1 pr-6 truncate">{item.title}</h4>
                                                 <p className="text-orange-500 text-xs uppercase tracking-wider mb-2 font-bold truncate">{item.role}</p>
-                                                <p className="text-neutral-300 text-sm leading-relaxed mt-auto border-t border-neutral-800 pt-3 flex-1 line-clamp-4 text-ellipsis overflow-hidden">{item.desc}</p>
+                                                <p className="text-neutral-400 text-sm leading-relaxed mt-auto border-t border-neutral-800 pt-3 flex-1 line-clamp-4 text-ellipsis overflow-hidden">{item.desc}</p>
                                             </div>
                                         </FadeIn>
                                     ))}
