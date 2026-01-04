@@ -101,27 +101,11 @@ const education = {
 
 const projects = [
     {
-        title: "Keyword Research Tool",
-        type: "AdTech Product (Unibots)",
-        focus: "Revenue & Efficiency",
-        outcome: "70-80% Time Reduction",
-        desc: "Built a 0-1 tool enabling high-RPC campaigns. Drastically reduced manual research time and contributed 10-15% to total revenue.",
-        icon: <Database className="text-orange-400" size={28} />
-    },
-    {
-        title: "All-in-One Campaign Manager",
-        type: "Internal Tool (Unibots)",
-        focus: "Workflow Automation",
-        outcome: "60-70% Faster Launch",
-        desc: "Unified campaign creation, policy checks, and automation into a single system, streamlining the media-buyer workflow.",
-        icon: <Layout className="text-blue-400" size={28} />
-    },
-    {
         title: "Web Traffic Classification",
         type: "Flask + ML Service",
         focus: "Bot Detection",
         outcome: "High Accuracy",
-        github: "https://github.com/chetanya1998", // Placeholder as requested
+        github: "https://github.com/chetanya1998/3D_Visualisation_Web_Traffic",
         desc: "Implemented an ML pipeline to classify bot vs human traffic using Logistic Regression, Random Forest, and Isolation Forest.",
         structuredDesc: [
             { label: "Problem", text: "Raw logs are noisy; stealth bots evade single models and cause false positives." },
@@ -131,12 +115,47 @@ const projects = [
         icon: <Cpu className="text-purple-400" size={28} />
     },
     {
-        title: "Founder KPI Dashboard",
-        type: "Analytics Tool",
-        focus: "Data Visualization",
-        outcome: "36 Real-time Metrics",
-        desc: "Built a comprehensive dashboard tracking 36 real-time metrics for product, revenue, and operational health.",
-        icon: <BarChart3 className="text-emerald-400" size={28} />
+        title: "Utility-First NFT Marketplace",
+        type: "Web3 / React Native",
+        focus: "User Experience",
+        outcome: "Simplified Onboarding",
+        github: "https://github.com/chetanya1998/NFT-Market-Place",
+        demo: "https://chetanya1998.github.io/NFT-Market-Place/",
+        desc: "Designed a marketplace where collectibles are utility keys, making web3 approachable via mobile-first UX.",
+        structuredDesc: [
+            { label: "Problem", text: "Most NFT platforms are trading-first and intimidating. Lack of clear utility hurts retention." },
+            { label: "Solution", text: "Defined MVP for utility-based ownership. Built marketplace foundation with listing/browsing flows." },
+            { label: "Users", text: "Youth buyers seeking rewards; Creators growing community; Partners tracking usage." }
+        ],
+        icon: <Globe className="text-blue-400" size={28} />
+    },
+    {
+        title: "Bot Behavior Profiling Tool",
+        type: "Security / Data Science",
+        focus: "Threat Intelligence",
+        outcome: "Behavioral Clustering",
+        github: "https://github.com/chetanya1998/Base_Bot_Profiler",
+        desc: "Profiling tool using UMAP clustering to identify bot archetypes beyond binary classification.",
+        structuredDesc: [
+            { label: "Problem", text: "Binary classification fails when tactics shift. Teams need to identify specific bot behaviors." },
+            { label: "Solution", text: "Built pipeline: Attack Sim -> Logging -> Feature Extraction -> UMAP Clustering." },
+            { label: "Impact", text: "Enabled interpretation of clusters (paths, rates, sessions) for faster countermeasure design." }
+        ],
+        icon: <BarChart3 className="text-orange-400" size={28} />
+    },
+    {
+        title: "Smart Traffic Firewall",
+        type: "Real-time Security",
+        focus: "Traffic Monitoring",
+        outcome: "Auto-Blocking",
+        github: "https://github.com/chetanya1998/Firewall_MVP",
+        desc: "Real-time system detecting automated abuse via logging, behavioral features, and anomaly models.",
+        structuredDesc: [
+            { label: "Problem", text: "Logs are noisy; manual response is slow. Detection without enforcement creates blind spots." },
+            { label: "Solution", text: "Flask ingestion + Traffic Simulator + Monitoring Agent (Anomaly Models) + Action Layer." },
+            { label: "JTBD", text: "Monitor traffic, quarantine offenders, simulate attacks, and retrain models." }
+        ],
+        icon: <Code className="text-red-400" size={28} />
     }
 ];
 
