@@ -616,10 +616,10 @@ export default function Portfolio() {
                 <section id="projects" className="py-16 md:py-24">
                     <SectionHeader num="2" title="Selected Projects" />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {projects.map((project, idx) => (
                             <FadeIn key={idx} delay={idx * 100}>
-                                <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-[500px] flex flex-col overflow-hidden">
+                                <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-full flex flex-col overflow-hidden">
                                     <div className="absolute top-6 right-6 md:top-8 md:right-8 flex gap-3">
                                         {project.github && (
                                             <a
