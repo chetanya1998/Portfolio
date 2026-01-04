@@ -45,7 +45,7 @@ const personalInfo = {
 
 const stats = [
     { label: "Experience", value: "2+ Years" },
-    { label: "Revenue Impact", value: "30-40%" },
+    { label: "Revenue Impact", value: "10-15%" },
     { label: "Efficiency Boost", value: "20-30%" },
     { label: "Citations", value: "100+" },
 ];
@@ -486,7 +486,7 @@ export default function Portfolio() {
                                 <div className="flex flex-col gap-6">
                                     {/* Primary Actions */}
                                     <div className="flex flex-wrap gap-4">
-                                        <a href="#projects" className="group flex items-center justify-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white hover:bg-neutral-800 hover:border-orange-500/50 transition-all shadow-lg text-sm md:text-base font-medium">
+                                        <a href="#work" className="group flex items-center justify-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white hover:bg-neutral-800 hover:border-orange-500/50 transition-all shadow-lg text-sm md:text-base font-medium">
                                             View Work
                                             <ArrowUpRight className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" size={16} />
                                         </a>
@@ -582,7 +582,7 @@ export default function Portfolio() {
                                             </div>
 
                                             <h3 className="text-2xl md:text-3xl font-light text-white mb-2 group-hover:text-orange-100 transition-colors pr-8">
-                                                {exp.role} <span className="text-neutral-500">at</span> <span className="text-orange-500">{exp.company}</span>
+                                                {exp.role} {exp.company !== "UPSC Preparation & Research" && <><span className="text-neutral-500">at</span> <span className="text-orange-500">{exp.company}</span></>}
                                             </h3>
 
                                             <div className={`grid transition-all duration-300 ease-in-out ${openExperienceIndex === idx ? 'grid-rows-[1fr] opacity-100 mt-6' : 'grid-rows-[0fr] opacity-0 mt-0'}`}>
@@ -628,7 +628,7 @@ export default function Portfolio() {
 
                 {/* Projects Carousel */}
                 <section id="projects" className="py-16 md:py-24">
-                    <SectionHeader num="2" title="Selected Projects" />
+                    <SectionHeader num="2" title="Side Projects" />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {projects.map((project, idx) => (
@@ -673,6 +673,29 @@ export default function Portfolio() {
                                             </p>
                                         </>
                                     )}
+
+                                    <div className="mt-6 pt-6 border-t border-neutral-800/50 flex flex-wrap gap-3">
+                                        {project.github && (
+                                            <a
+                                                href={project.github}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="flex items-center gap-2 px-4 py-2 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 hover:text-white hover:border-orange-500/50 transition-colors text-sm font-medium"
+                                            >
+                                                <Github size={16} /> GitHub
+                                            </a>
+                                        )}
+                                        {project.demo && (
+                                            <a
+                                                href={project.demo}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="flex items-center gap-2 px-4 py-2 bg-neutral-800 rounded-full border border-neutral-700 text-white hover:bg-orange-600 hover:border-orange-600 transition-colors text-sm font-medium"
+                                            >
+                                                <ExternalLink size={16} /> Mockup
+                                            </a>
+                                        )}
+                                    </div>
                                 </div>
                             </FadeIn>
                         ))}
