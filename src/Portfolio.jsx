@@ -58,10 +58,10 @@ const experiences = [
         period: "Dec 2024 — Present",
         type: "New Delhi, India",
         achievements: [
-            <>Owned end-to-end product execution for multiple internal dashboards & tools, reporting directly to the CEO/founders and leading cross-functional delivery with a <span className="text-white font-medium">team of 5</span>(engineering + QA).</>,
-            <>Built 0→1 Keyword Research Tool reducing research time by <span className="text-white font-medium">70–80%</span> of Media-Buyers and enabling high-RPC campaigns contributing <span className="text-white font-medium">10–15% revenue</span>.</>,
-            <>Managed 5+ <span className="text-white font-medium">revenue products</span> in the New Product Development team contributing <span className="text-white font-medium">30–35%</span> company revenue.</>,
-            <>Designed all-in-one campaign creation system reducing launch time by <span className="text-white font-medium">50–60%</span> with automation and policy checks.</>,
+            "Owned end-to-end product execution for multiple internal dashboards & tools, reporting directly to the CEO/founders and leading cross-functional delivery with a team of 5(engineering + QA).",
+            "Built 0→1 Keyword Research Tool reducing research time by 70–80% of Media-Buyers and enabling high-RPC campaigns contributing 10–15% revenue.",
+            "Managed 5+ revenue products in the New Product Development team contributing 30–35% company revenue.",
+            "Designed all-in-one campaign creation system reducing launch time by 50–60% with automation and policy checks.",
             "Developed business proposals for the CEO to launch intent-based advertising campaigns for brands, authoring 5+ case studies and validating new campaign models across domains."
         ],
         tags: ["Product Management", "AdTech", "0-1 Build", "Automation"]
@@ -73,7 +73,7 @@ const experiences = [
         type: "Remote",
         achievements: [
             "Gained hands-on experience addressing user pain points and potential drop-offs through usability testing of various products.",
-            "Conducted 30+ User Interviews for Product Improvement, Design & Teardowns to enhance user experiences.",
+            "Conducted 30+ User Interviews for Product Improvement, Design & Teardowns to enhance user experiences",
             "Led a team of 5 experienced individuals for capstone and product teardowns, also successfully worked upon 10+ Product Cases."
         ],
         tags: ["User Research", "Usability Testing", "Product Strategy"]
@@ -84,9 +84,9 @@ const experiences = [
         period: "July 2023 — July 2024",
         type: "Gurugram, India",
         achievements: [
-            <>Partnered with <span className="text-white font-medium">Principals</span> and <span className="text-white font-medium">Senior Consultants</span> to understand client needs and craft tailored search strategies..</>,
-            <>Conducted market research under <span className="text-white font-medium">Chairperson’s office</span> for business development mandates in <span className="text-white font-medium">Fintech Industry</span> which contributed to <span className="text-white font-medium">10% growth in Clientele</span>.</>,
-            <>Implementing strategic research on business development mandates contributed to <span className="text-white font-medium">20% in revenue growth</span> in FY2023-24.</>
+            "Partnered with Principals and Senior Consultants to understand client needs and craft tailored search strategies.",
+            "Conducted market research under Chairperson’s office for business development mandates in Fintech Industry which contributed to 10% growth in Clientele.",
+            "Implementing strategic research on business development mandates contributed to 20% in revenue growth in FY2023-24"
         ],
         tags: ["Market Research", "Business Development", "Strategy"]
     },
