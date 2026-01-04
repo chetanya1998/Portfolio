@@ -861,9 +861,9 @@ export default function Portfolio() {
 
                                     <div className="space-y-6">
                                         <div>
-                                            <h4 className="text-sm text-neutral-400 uppercase tracking-widest mb-4">Product & AdTech</h4>
+                                            <h4 className="text-sm text-neutral-400 uppercase tracking-widest mb-4">Product Skills</h4>
                                             <div className="flex flex-wrap gap-2.5">
-                                                {[...skills.product, ...skills.adtech].map(skill => (
+                                                {skills.product.map(skill => (
                                                     <span key={skill} className="px-4 py-2 bg-neutral-950 border border-neutral-800 rounded-full text-neutral-300 text-base md:text-lg hover:border-neutral-600 hover:text-white transition-colors cursor-default">
                                                         {skill}
                                                     </span>
@@ -872,9 +872,9 @@ export default function Portfolio() {
                                         </div>
 
                                         <div>
-                                            <h4 className="text-sm text-neutral-400 uppercase tracking-widest mb-4">Technical & Tools</h4>
+                                            <h4 className="text-sm text-neutral-400 uppercase tracking-widest mb-4">Tools & Technologies</h4>
                                             <div className="flex flex-wrap gap-2.5">
-                                                {[...skills.technical, ...skills.tools].map(skill => (
+                                                {skills.technical.map(skill => (
                                                     <span key={skill} className="px-4 py-2 bg-neutral-950 border border-neutral-800 rounded-full text-neutral-300 text-base md:text-lg hover:border-neutral-600 hover:text-white transition-colors cursor-default">
                                                         {skill}
                                                     </span>
