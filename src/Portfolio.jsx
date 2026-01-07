@@ -448,7 +448,7 @@ export default function Portfolio() {
                         <NavItem href="#work" label="Work" />
                         <NavItem href="#projects" label="Projects" />
                         <NavItem href="#research" label="Research" />
-                        <a href="/Chetanya_Ved_Resume.pdf" target="_blank" className="px-5 py-2 bg-neutral-100 text-neutral-900 text-base font-bold rounded-full hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-0.5 shadow-lg hover:shadow-orange-500/20">
+                        <a href="https://drive.google.com/drive/folders/1zVni9cvt_s8TvqIpot_URAaL6RC7LrfB?usp=sharing" target="_blank" className="px-5 py-2 bg-neutral-100 text-neutral-900 text-base font-bold rounded-full hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-0.5 shadow-lg hover:shadow-orange-500/20">
                             Resume
                         </a>
                     </div>
