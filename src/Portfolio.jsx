@@ -504,8 +504,9 @@ export default function Portfolio() {
                                             <ArrowUpRight className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" size={16} />
                                         </a>
                                         <a
-                                            href="/Chetanya_Ved_Resume.pdf"
-                                            download
+                                            href="https://drive.google.com/drive/folders/1zVni9cvt_s8TvqIpot_URAaL6RC7LrfB?usp=sharing"
+                                            target="_blank"
+                                            rel="noreferrer"
                                             className="group flex items-center justify-center gap-2 px-6 py-3 text-neutral-400 hover:text-white transition-colors border border-neutral-800 rounded-full hover:bg-neutral-900 text-sm md:text-base font-medium"
                                         >
                                             <Download size={18} /> Download Resume
