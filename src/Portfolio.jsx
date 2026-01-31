@@ -1039,8 +1039,6 @@ export default function Portfolio() {
                         <p className="text-center md:text-left">© {new Date().getFullYear()} {personalInfo.name}. All rights reserved.</p>
                         <div className="flex gap-8">
                             <a href="#" className="hover:text-white transition-colors">Resume</a>
-                            <a href="#" className="hover:text-white transition-colors">Twitter</a>
-                            <a href="#" className="hover:text-white transition-colors">Medium</a>
                         </div>
                     </div>
                 </div>
