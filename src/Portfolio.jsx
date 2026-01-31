@@ -844,18 +844,10 @@ export default function Portfolio() {
                                         }
                                     ].map((item, idx) => (
                                         <FadeIn key={idx} delay={idx * 100}>
-                                            <a
-                                                href={item.link}
-                                                target={item.link.startsWith('http') ? "_blank" : "_self"}
-                                                rel="noreferrer"
+                                            <div
                                                 className="group block w-full text-left"
                                             >
                                                 <div className="p-6 md:p-8 bg-neutral-900 border border-neutral-800 rounded-2xl md:rounded-3xl hover:border-orange-500/30 hover:bg-neutral-800 transition-all duration-300 flex flex-col md:flex-row gap-6 md:items-start relative overflow-hidden">
-
-                                                    {/* Arrow Icon */}
-                                                    <div className="absolute top-6 right-6 text-neutral-600 group-hover:text-orange-500 transition-colors">
-                                                        <ArrowUpRight size={20} />
-                                                    </div>
 
                                                     {/* Left: Role & Title */}
                                                     <div className="md:w-[35%] flex-shrink-0 pr-8">
@@ -868,7 +860,7 @@ export default function Portfolio() {
                                                         <p className="text-neutral-300 text-sm md:text-base leading-relaxed">{item.desc}</p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </div>
                                         </FadeIn>
                                     ))}
                                 </div>
