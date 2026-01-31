@@ -1035,11 +1035,8 @@ export default function Portfolio() {
                         </div>
                     </div>
 
-                    <div className="pt-8 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-600 text-sm">
-                        <p className="text-center md:text-left">© {new Date().getFullYear()} {personalInfo.name}. All rights reserved.</p>
-                        <div className="flex gap-8">
-                            <a href="#" className="hover:text-white transition-colors">Resume</a>
-                        </div>
+                    <div className="pt-8 border-t border-neutral-900 flex justify-center items-center text-neutral-600 text-sm">
+                        <p className="text-center">© {new Date().getFullYear()} {personalInfo.name}. All rights reserved.</p>
                     </div>
                 </div>
             </footer>
