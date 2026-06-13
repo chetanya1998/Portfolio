@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import GlobalBackground from './components/GlobalBackground';
 import GlowingCursor from './components/GlowingCursor';
 import Carousel from './components/Carousel';
+import GlassCard from './components/GlassCard';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import {
     ArrowUpRight,
     ArrowRight,
@@ -274,36 +276,21 @@ const skills = {
 // --- Animation Components ---
 
 const FadeIn = ({ children, delay = 0, className = "" }) => {
-    const [isVisible, setIsVisible] = useState(false);
-    const domRef = useRef();
-
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        const currentElement = domRef.current;
-        if (currentElement) observer.observe(currentElement);
-        return () => {
-            if (currentElement) observer.unobserve(currentElement);
-        };
-    }, []);
-
     return (
-        <div
-            ref={domRef}
-            className={`transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                } ${className}`}
-            style={{ transitionDelay: `${delay}ms` }}
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ 
+                duration: 0.6, 
+                delay: delay / 1000, 
+                type: "spring", 
+                stiffness: 50 
+            }}
+            className={className}
         >
             {children}
-        </div>
+        </motion.div>
     );
 };
 
@@ -413,6 +400,10 @@ export default function Portfolio() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openExperienceIndex, setOpenExperienceIndex] = useState(0);
 
+    const { scrollY } = useScroll();
+    const heroY = useTransform(scrollY, [0, 800], [0, 200]);
+    const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+
     const toggleExperience = (index) => {
         setOpenExperienceIndex(openExperienceIndex === index ? -1 : index);
     };
@@ -473,7 +464,10 @@ export default function Portfolio() {
 
             {/* Hero Section */}
             <section className="relative pt-32 pb-16 md:pt-60 md:pb-32 px-4 md:px-6 z-10 min-h-screen flex items-center">
-                <div className="max-w-7xl mx-auto w-full">
+                <motion.div 
+                    className="max-w-7xl mx-auto w-full"
+                    style={{ y: heroY, opacity: heroOpacity }}
+                >
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
                         <div className="md:col-span-8">
                             {/* Avatar - Mobile/Tablet */}
@@ -552,18 +546,18 @@ export default function Portfolio() {
 
                             {/* Stats Bento */}
                             <FadeIn delay={1600}>
-                                <div className="grid grid-cols-2 gap-px bg-neutral-800 border border-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
+                                <div className="grid grid-cols-2 gap-4">
                                     {stats.map((stat, i) => (
-                                        <div key={i} className="bg-neutral-900/80 backdrop-blur-sm p-6 hover:bg-neutral-800 transition-colors flex flex-col justify-center min-h-[140px] group cursor-default">
-                                            <h3 className="text-2xl sm:text-3xl md:text-4xl font-light text-white mb-2 group-hover:text-orange-400 transition-colors">{stat.value}</h3>
-                                            <p className="text-sm font-mono text-neutral-400 uppercase tracking-widest leading-relaxed">{stat.label}</p>
-                                        </div>
+                                        <GlassCard key={i} className="p-6 min-h-[140px] flex flex-col justify-center text-center items-center">
+                                            <h3 className="text-2xl sm:text-3xl md:text-4xl font-light text-white mb-2 group-hover:text-orange-400 transition-colors pointer-events-none">{stat.value}</h3>
+                                            <p className="text-sm font-mono text-neutral-400 uppercase tracking-widest leading-relaxed pointer-events-none">{stat.label}</p>
+                                        </GlassCard>
                                     ))}
                                 </div>
                             </FadeIn>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </section>
 
             <main className="max-w-7xl mx-auto px-4 md:px-6 z-10 relative">
@@ -647,12 +641,12 @@ export default function Portfolio() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {projects.map((project, idx) => (
                             <FadeIn key={idx} delay={idx * 100}>
-                                <div className="group relative bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 h-full flex flex-col overflow-hidden">
+                                <GlassCard className="p-6 md:p-8 h-full flex flex-col overflow-hidden z-10 relative pointer-events-auto">
                                     <div className="absolute top-6 right-6 md:top-8 md:right-8 flex gap-3 opacity-0">
                                         {/* Hidden as requested */}
                                     </div>
 
-                                    <div className="mb-6 md:mb-8">
+                                    <div className="mb-6 md:mb-8 pointer-events-none">
                                         <div className="w-14 h-14 rounded-2xl bg-neutral-950 border border-neutral-800 flex items-center justify-center mb-6 group-hover:border-orange-500/20 transition-colors">
                                             {project.icon}
                                         </div>
@@ -661,7 +655,7 @@ export default function Portfolio() {
                                     </div>
 
                                     {project.structuredDesc ? (
-                                        <div className="space-y-4 mt-auto flex-1">
+                                        <div className="space-y-4 mt-auto flex-1 pointer-events-none">
                                             {project.structuredDesc.map((item, i) => (
                                                 <div key={i}>
                                                     <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider block mb-1">{item.label}</span>
@@ -671,7 +665,7 @@ export default function Portfolio() {
                                         </div>
                                     ) : (
                                         <>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 pointer-events-none">
                                                 <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 min-w-0">
                                                     <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Focus</span>
                                                     <span className="text-neutral-200 font-medium text-base md:text-lg break-words line-clamp-2">{project.focus}</span>
@@ -682,13 +676,13 @@ export default function Portfolio() {
                                                 </div>
                                             </div>
 
-                                            <p className="text-neutral-300 leading-relaxed text-base md:text-lg border-l-2 border-neutral-700 pl-6 group-hover:border-orange-500/50 transition-colors mt-auto flex-1 line-clamp-4 text-ellipsis overflow-hidden">
+                                            <p className="text-neutral-300 leading-relaxed text-base md:text-lg border-l-2 border-neutral-700 pl-6 group-hover:border-orange-500/50 transition-colors mt-auto flex-1 line-clamp-4 text-ellipsis overflow-hidden pointer-events-none">
                                                 {project.desc}
                                             </p>
                                         </>
                                     )}
 
-                                    <div className="mt-6 pt-6 border-t border-neutral-800/50 flex flex-wrap gap-3">
+                                    <div className="mt-6 pt-6 border-t border-neutral-800/50 flex flex-wrap gap-3 relative z-20 pointer-events-auto">
                                         {project.github && (
                                             <a
                                                 href={project.github}
@@ -710,7 +704,7 @@ export default function Portfolio() {
                                             </a>
                                         )}
                                     </div>
-                                </div>
+                                </GlassCard>
                             </FadeIn>
                         ))}
                     </div>
@@ -735,43 +729,40 @@ export default function Portfolio() {
                             { title: "EV Industry", subtitle: "Competitive Dynamics", tags: ["Market Research", "EV"], icon: "zap", color: "from-blue-500 to-purple-500", link: "https://www.notion.so/chetanya-ev-project/Analyzing-Competitive-Dynamics-and-Market-Opportunities-in-the-Global-Electric-Vehicle-EV-Industry-49cb52c1609c4ecbafa2c60d8f7dd048?source=copy_link" }
                         ].map((item, idx) => (
                             <FadeIn key={idx} delay={idx * 50}>
-                                <a
-                                    href={item.link || undefined}
-                                    target={item.link ? "_blank" : undefined}
-                                    rel={item.link ? "noreferrer" : undefined}
-                                    className={`group h-full bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-900/5 transition-all duration-300 flex flex-col ${item.link ? 'cursor-pointer' : 'cursor-default'}`}
-                                    onClick={(e) => !item.link && e.preventDefault()}
-                                >
-                                    {/* Thumbnail Placeholder */}
-                                    <div className={`h-40 w-full bg-gradient-to-br ${item.color} relative p-6 flex flex-col justify-between group-hover:scale-105 transition-transform duration-500`}>
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
-                                        <div className="relative z-10 p-3 bg-white/20 backdrop-blur-md rounded-xl w-fit text-white">
-                                            {/* Icons would normally be imported, using generic box for now if dynamic import tricky, but assuming Lucide usage */}
-                                            {/* Mapping string to component is tricky in loop without a map object. Using generic icon for simplicity in this snippet, or I will update imports later. 
-                                                Actually, I'll use a simple generic icon here effectively or rely on conditional rendering if I can.
-                                                Simplest approach: Just use ArrowUpRight in corner and the text title.
-                                             */}
-                                            <ArrowUpRight size={20} className="text-white" />
-                                        </div>
-                                        <h3 className="relative z-10 text-xl font-bold text-white shadow-sm">{item.title}</h3>
-                                    </div>
-
-                                    <div className="p-5 flex flex-col flex-1">
-                                        <h4 className="text-neutral-200 font-medium mb-3">{item.subtitle}</h4>
-
-                                        <div className="flex flex-wrap gap-2 mt-auto">
-                                            {item.tags.map((tag, tIdx) => (
-                                                <span key={tIdx} className="text-xs px-2 py-1 rounded bg-neutral-950 border border-neutral-800 text-neutral-400">
-                                                    {tag}
-                                                </span>
-                                            ))}
+                                <GlassCard className={`h-full ${item.link ? 'cursor-pointer' : 'cursor-default'}`}>
+                                    <a
+                                        href={item.link || undefined}
+                                        target={item.link ? "_blank" : undefined}
+                                        rel={item.link ? "noreferrer" : undefined}
+                                        className="group flex flex-col h-full"
+                                        onClick={(e) => !item.link && e.preventDefault()}
+                                    >
+                                        {/* Thumbnail Placeholder */}
+                                        <div className={`h-40 w-full bg-gradient-to-br ${item.color} relative p-6 flex flex-col justify-between group-hover:scale-105 transition-transform duration-500`}>
+                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                                            <div className="relative z-10 p-3 bg-white/20 backdrop-blur-md rounded-xl w-fit text-white">
+                                                <ArrowUpRight size={20} className="text-white" />
+                                            </div>
+                                            <h3 className="relative z-10 text-xl font-bold text-white shadow-sm">{item.title}</h3>
                                         </div>
 
-                                        <div className={`mt-4 pt-4 border-t border-neutral-800 flex items-center gap-2 text-sm text-orange-500 font-medium transition-all ${item.link ? 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0' : 'hidden'}`}>
-                                            Read Case Study <ArrowRight size={14} />
+                                        <div className="p-5 flex flex-col flex-1 relative z-20 pointer-events-none">
+                                            <h4 className="text-neutral-200 font-medium mb-3">{item.subtitle}</h4>
+
+                                            <div className="flex flex-wrap gap-2 mt-auto">
+                                                {item.tags.map((tag, tIdx) => (
+                                                    <span key={tIdx} className="text-xs px-2 py-1 rounded bg-neutral-950 border border-neutral-800 text-neutral-400">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+
+                                            <div className={`mt-4 pt-4 border-t border-neutral-800 flex items-center gap-2 text-sm text-orange-500 font-medium transition-all ${item.link ? 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0' : 'hidden'}`}>
+                                                Read Case Study <ArrowRight size={14} />
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </GlassCard>
                             </FadeIn>
                         ))}
                     </div>
@@ -790,30 +781,32 @@ export default function Portfolio() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {publications.map((pub, idx) => (
                                         <FadeIn key={idx} delay={idx * 100}>
-                                            <a
-                                                href={pub.link}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="h-full p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800 hover:border-orange-500/30 hover:bg-neutral-900 transition-all duration-300 flex flex-col group relative overflow-hidden cursor-pointer"
-                                            >
-                                                <div className="flex justify-between items-start mb-4">
-                                                    <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors shrink-0">
-                                                        <BookOpen size={18} />
+                                            <GlassCard className="h-full">
+                                                <a
+                                                    href={pub.link}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="p-6 flex flex-col group relative h-full cursor-pointer pointer-events-auto z-10"
+                                                >
+                                                    <div className="flex justify-between items-start mb-4 pointer-events-none">
+                                                        <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors shrink-0">
+                                                            <BookOpen size={18} />
+                                                        </div>
+                                                        {pub.citations && (
+                                                            <span className="text-xs font-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 px-2 py-1 rounded border border-neutral-800">
+                                                                Citations: <span className="text-orange-500">{pub.citations}</span>
+                                                            </span>
+                                                        )}
                                                     </div>
-                                                    {pub.citations && (
-                                                        <span className="text-xs font-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 px-2 py-1 rounded border border-neutral-800">
-                                                            Citations: <span className="text-orange-500">{pub.citations}</span>
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <div className="flex items-start justify-between gap-2">
-                                                    <h4 className="text-white font-medium text-lg mb-2 leading-snug group-hover:text-orange-100 transition-colors line-clamp-3">{pub.title}</h4>
-                                                    <ArrowUpRight size={16} className="text-neutral-600 group-hover:text-orange-500 shrink-0 transition-colors" />
-                                                </div>
-                                                <p className="text-neutral-500 text-sm mt-auto pt-4 border-t border-neutral-800 line-clamp-2">
-                                                    {pub.context}
-                                                </p>
-                                            </a>
+                                                    <div className="flex items-start justify-between gap-2 pointer-events-none">
+                                                        <h4 className="text-white font-medium text-lg mb-2 leading-snug group-hover:text-orange-100 transition-colors line-clamp-3">{pub.title}</h4>
+                                                        <ArrowUpRight size={16} className="text-neutral-600 group-hover:text-orange-500 shrink-0 transition-colors" />
+                                                    </div>
+                                                    <p className="text-neutral-500 text-sm mt-auto pt-4 border-t border-neutral-800 line-clamp-2 pointer-events-none">
+                                                        {pub.context}
+                                                    </p>
+                                                </a>
+                                            </GlassCard>
                                         </FadeIn>
                                     ))}
                                 </div>
@@ -870,8 +863,8 @@ export default function Portfolio() {
                             <div>
                                 <SectionHeader num="6" title="Education" />
                                 <FadeIn>
-                                    <div className="p-6 md:p-8 bg-neutral-900/30 rounded-3xl border border-neutral-800 hover:border-neutral-700 transition-colors">
-                                        <div className="flex flex-col sm:flex-row items-start gap-6">
+                                    <GlassCard className="p-6 md:p-8">
+                                        <div className="flex flex-col sm:flex-row items-start gap-6 pointer-events-none">
                                             <div className="p-4 bg-neutral-800 rounded-2xl shrink-0">
                                                 <GraduationCap className="text-white" size={28} />
                                             </div>
@@ -887,7 +880,7 @@ export default function Portfolio() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </GlassCard>
                                 </FadeIn>
                             </div>
 
@@ -898,18 +891,18 @@ export default function Portfolio() {
 
                             {/* Skills */}
                             <FadeIn delay={200}>
-                                <div className="bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 transition-colors">
-                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3">
+                                <GlassCard className="p-6 md:p-8">
+                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3 pointer-events-none">
                                         <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400"><Database size={20} /></div>
                                         Skills & Stack
                                     </h3>
 
-                                    <div className="space-y-6">
+                                    <div className="space-y-6 pointer-events-none">
                                         <div>
                                             <h4 className="text-sm text-neutral-400 uppercase tracking-widest mb-4">Product Skills</h4>
                                             <div className="flex flex-wrap gap-2.5">
                                                 {skills.product.map(skill => (
-                                                    <span key={skill} className="px-4 py-2 bg-neutral-950 border border-neutral-800 rounded-full text-neutral-300 text-base md:text-lg hover:border-neutral-600 hover:text-white transition-colors cursor-default">
+                                                    <span key={skill} className="px-4 py-2 bg-neutral-950 border border-neutral-800 rounded-full text-neutral-300 text-base md:text-lg hover:border-neutral-600 hover:text-white transition-colors cursor-default pointer-events-auto">
                                                         {skill}
                                                     </span>
                                                 ))}
@@ -920,25 +913,24 @@ export default function Portfolio() {
                                             <h4 className="text-sm text-neutral-400 uppercase tracking-widest mb-4">Tools & Technologies</h4>
                                             <div className="flex flex-wrap gap-2.5">
                                                 {skills.technical.map(skill => (
-                                                    <span key={skill} className="px-4 py-2 bg-neutral-950 border border-neutral-800 rounded-full text-neutral-300 text-base md:text-lg hover:border-neutral-600 hover:text-white transition-colors cursor-default">
+                                                    <span key={skill} className="px-4 py-2 bg-neutral-950 border border-neutral-800 rounded-full text-neutral-300 text-base md:text-lg hover:border-neutral-600 hover:text-white transition-colors cursor-default pointer-events-auto">
                                                         {skill}
                                                     </span>
                                                 ))}
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
+                                </GlassCard>
                             </FadeIn>
 
                             {/* Leadership & Awards */}
                             <FadeIn delay={300}>
-                                <div className="bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 transition-colors">
-                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3">
+                                <GlassCard className="p-6 md:p-8">
+                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3 pointer-events-none">
                                         <div className="p-2 bg-yellow-500/10 rounded-lg text-yellow-400"><Award size={20} /></div>
                                         Recognition
                                     </h3>
-                                    <div className="space-y-6">
+                                    <div className="space-y-6 pointer-events-none">
                                         {leadership.map((item, idx) => (
                                             <div key={idx} className="relative pl-6 border-l border-neutral-800 hover:border-orange-500 transition-colors">
                                                 <h4 className="text-white font-medium text-lg">{item.role}</h4>
@@ -951,17 +943,17 @@ export default function Portfolio() {
                                             <p className="text-sm text-orange-500 uppercase tracking-wider mb-2 font-bold">IEEE Delhi Section</p>
                                         </div>
                                     </div>
-                                </div>
+                                </GlassCard>
                             </FadeIn>
 
                             {/* Leadership Roles & Responsibilities */}
                             <FadeIn delay={400}>
-                                <div className="bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-8 hover:bg-neutral-900 transition-colors">
-                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3">
+                                <GlassCard className="p-6 md:p-8">
+                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3 pointer-events-none">
                                         <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400"><Users size={20} /></div>
                                         Leadership Role & Responsibilities
                                     </h3>
-                                    <div className="space-y-8">
+                                    <div className="space-y-8 pointer-events-none">
                                         {leadershipRoles.map((role, idx) => (
                                             <div key={idx} className="relative pl-6 border-l border-neutral-800 hover:border-orange-500 transition-colors">
                                                 <h4 className="text-white font-medium text-lg leading-snug mb-3">{role.role}</h4>
@@ -975,7 +967,7 @@ export default function Portfolio() {
                                             </div>
                                         ))}
                                     </div>
-                                </div>
+                                </GlassCard>
                             </FadeIn>
 
                         </div>
