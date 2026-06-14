@@ -47,7 +47,7 @@ export const NativeBackgroundAudio = () => {
     return (
         <audio 
             ref={audioRef}
-            src="/ambient.mp3" 
+            src={`${import.meta.env.BASE_URL}ambient.mp3`} 
             loop 
             preload="auto"
             className="hidden"
