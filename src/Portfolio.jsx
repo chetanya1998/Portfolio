@@ -13,7 +13,7 @@ import { SkillInventory } from './components/SkillInventory';
 import { ContactTerminal } from './components/ContactTerminal';
 import { MiniTerminal } from './components/MiniTerminal';
 import { AudioControl } from './components/AudioControl';
-import { YoutubeBackgroundAudio } from './components/YoutubeBackgroundAudio';
+import { NativeBackgroundAudio } from './components/NativeBackgroundAudio';
 import { ParticleMeshBackground } from './components/ParticleMeshBackground';
 import { playHoverSound, playClickSound } from './utils/sounds';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -65,7 +65,7 @@ export default function Portfolio() {
                 <GlowingCursor />
             </div>
 
-            <YoutubeBackgroundAudio />
+            <NativeBackgroundAudio />
             <motion.div style={{ y: yBg }} className="fixed inset-0 pointer-events-none z-0">
                 <ParticleMeshBackground />
             </motion.div>
