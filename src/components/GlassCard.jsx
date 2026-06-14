@@ -1,12 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-// Helper to merge tailwind classes
-function cn(...inputs) {
-    return twMerge(clsx(inputs));
-}
+import { cn } from '../utils';
 
 const GlassCard = ({ children, className, glowColor = "rgba(249, 115, 22, 0.5)", noTilt = false }) => {
     const ref = useRef(null);

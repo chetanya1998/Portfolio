@@ -1,412 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import GlobalBackground from './components/GlobalBackground';
 import GlowingCursor from './components/GlowingCursor';
-import Carousel from './components/Carousel';
-import GlassCard from './components/GlassCard';
+import { ProgressHUD } from './components/ProgressHUD';
+import { AchievementToast } from './components/AchievementToast';
+import { HeroStartScreen } from './components/HeroStartScreen';
+import { ImpactScoreboard } from './components/ImpactScoreboard';
+import { MissionMap } from './components/MissionMap';
+import { ProjectArcade } from './components/ProjectArcade';
+import { CaseStudyTheater } from './components/CaseStudyTheater';
+import { ResearchLab } from './components/ResearchLab';
+import { SkillInventory } from './components/SkillInventory';
+import { ContactTerminal } from './components/ContactTerminal';
+import { MiniTerminal } from './components/MiniTerminal';
+import { AudioControl } from './components/AudioControl';
+import { YoutubeBackgroundAudio } from './components/YoutubeBackgroundAudio';
+import { ParticleMeshBackground } from './components/ParticleMeshBackground';
+import { playHoverSound, playClickSound } from './utils/sounds';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import {
-    ArrowUpRight,
-    ArrowRight,
-    Mail,
-    Linkedin,
-    Menu,
-    X,
-    Database,
-
-    Layout,
-    Code,
-    Award,
-    BookOpen,
-    GraduationCap,
-    Users,
-    BarChart3,
-    Cpu,
-    Globe,
-    MessageSquare,
-    Send,
-
-    Download,
-    Github,
-    ChevronDown,
-    Quote,
-    ExternalLink
-} from 'lucide-react';
-
-// --- Data ---
-const personalInfo = {
-    name: "Chetanya Ved",
-    role: "Associate Product Manager",
-    subRole: "AdTech & Data Strategy",
-    company: "Unibots",
-    email: "chetanyaved@gmail.com",
-    phone: "+91 9354523282",
-    location: "New Delhi, India",
-    tagline: "On a mission of exploring Intersection - How AI will shape the future of Products, Business and Customer Experience",
-    about: "I am an Associate Product Manager with a unique blend of AdTech expertise and technical depth (Python, SQL, ML). Currently driving revenue growth at Unibots by building 0-1 tools and automation pipelines. My background in rigorous research enables me to solve complex problems with data-backed precision.",
-    linkedin: "https://www.linkedin.com/in/chetanyaved/"
-};
-
-const stats = [
-    { label: "Experience", value: "2+ Years" },
-    { label: "Revenue Impact", value: "10-15%" },
-    { label: "Efficiency Boost", value: "20-30%" },
-    { label: "Citations", value: "100+" },
-];
-
-const experiences = [
-    {
-        company: "Unibots",
-        role: "Associate Product Manager",
-        period: "Dec 2024 — Present",
-        type: "New Delhi, India",
-        achievements: [
-            "Owned end-to-end product execution for multiple internal dashboards & tools, reporting directly to the CEO/founders and leading cross-functional delivery with a team of 5(engineering + QA).",
-            "Built 0→1 Keyword Research Tool reducing research time by 70–80% of Media-Buyers and enabling high-RPC campaigns contributing 10–15% revenue.",
-            "Managed 5+ revenue products in the New Product Development team contributing 30–35% company revenue.",
-            "Designed all-in-one campaign creation system reducing launch time by 50–60% with automation and policy checks.",
-            "Developed business proposals for the CEO to launch intent-based advertising campaigns for brands, authoring 5+ case studies and validating new campaign models across domains."
-        ],
-        tags: ["Product Management", "AdTech", "0-1 Build", "Automation"]
-    },
-    {
-        company: "Product Space",
-        role: "Product Management Fellow",
-        period: "Aug 2024 — Dec 2024",
-        type: "Remote",
-        achievements: [
-            "Gained hands-on experience addressing user pain points and potential drop-offs through usability testing of various products.",
-            "Conducted 30+ User Interviews for Product Improvement, Design & Teardowns to enhance user experiences",
-            "Led a team of 5 experienced individuals for capstone and product teardowns, also successfully worked upon 10+ Product Cases."
-        ],
-        tags: ["User Research", "Usability Testing", "Product Strategy"]
-    },
-    {
-        company: "Stellar Search",
-        role: "Research Associate",
-        period: "July 2023 — July 2024",
-        type: "Gurugram, India",
-        achievements: [
-            "Partnered with Principals and Senior Consultants to understand client needs and craft tailored search strategies.",
-            "Conducted market research under Chairperson’s office for business development mandates in Fintech Industry which contributed to 10% growth in Clientele.",
-            "Implementing strategic research on business development mandates contributed to 20% in revenue growth in FY2023-24"
-        ],
-        tags: ["Market Research", "Business Development", "Strategy"]
-    },
-    {
-        company: "UPSC Preparation & Research",
-        role: "UPSC Preparation & Academic Researcher",
-        period: "July 2021 — July 2023",
-        type: "New Delhi, India",
-        achievements: [
-            "Prepared for India Civil Services exam for 2 Years.",
-            "Presented 2 Research Papers in IEEE Conference (InCACCT2024).",
-            "Published 10 Research Papers & Book Chapters in Journals & Academic Books, which have received over 100+ citations in various Journals and academic books."
-        ],
-        tags: ["Academic Writing", "Deep Learning", "Data Analysis"]
-    }
-];
-
-const education = {
-    degree: "B.Tech in Information Technology",
-    university: "Guru Gobind Singh Indraprastha University",
-    year: "2017 - 2021",
-    location: "New Delhi, India",
-    grade: "CGPA: 8.21/10"
-};
-
-const projects = [
-    {
-        title: "Web Traffic Classification",
-        type: "Flask + ML Service",
-        focus: "Bot Detection",
-        outcome: "High Accuracy",
-        github: "https://github.com/chetanya1998/3D_Visualisation_Web_Traffic",
-        desc: "Implemented an ML pipeline to classify bot vs human traffic using Logistic Regression, Random Forest, and Isolation Forest.",
-        structuredDesc: [
-            { label: "Problem", text: "Raw logs are noisy; stealth bots evade single models and cause false positives." },
-            { label: "Solution", text: "Built Flask assessment API with 3-model benchmark (LogReg, RF, IsoForest) & traffic simulator." },
-            { label: "Impact", text: "Delivered deployable service + 3 model baselines + repeatable evaluation pipeline." }
-        ],
-        icon: <Cpu className="text-purple-400" size={28} />
-    },
-    {
-        title: "Utility-First NFT Marketplace",
-        type: "Web3 / React Native",
-        focus: "User Experience",
-        outcome: "Simplified Onboarding",
-        github: "https://github.com/chetanya1998/NFT-Market-Place",
-        demo: "https://chetanya1998.github.io/NFT-Market-Place/",
-        desc: "Designed a marketplace where collectibles are utility keys, making web3 approachable via mobile-first UX.",
-        structuredDesc: [
-            { label: "Problem", text: "Most NFT platforms are trading-first and intimidating. Lack of clear utility hurts retention." },
-            { label: "Solution", text: "Defined MVP for utility-based ownership. Built marketplace foundation with listing/browsing flows." },
-            { label: "Users", text: "Youth buyers seeking rewards; Creators growing community; Partners tracking usage." }
-        ],
-        icon: <Globe className="text-blue-400" size={28} />
-    },
-    {
-        title: "Bot Behavior Profiling Tool",
-        type: "Security / Data Science",
-        focus: "Threat Intelligence",
-        outcome: "Behavioral Clustering",
-        github: "https://github.com/chetanya1998/Base_Bot_Profiler",
-        desc: "Profiling tool using UMAP clustering to identify bot archetypes beyond binary classification.",
-        structuredDesc: [
-            { label: "Problem", text: "Binary classification fails when tactics shift. Teams need to identify specific bot behaviors." },
-            { label: "Solution", text: "Built pipeline: Attack Sim -> Logging -> Feature Extraction -> UMAP Clustering." },
-            { label: "Impact", text: "Enabled interpretation of clusters (paths, rates, sessions) for faster countermeasure design." }
-        ],
-        icon: <BarChart3 className="text-orange-400" size={28} />
-    },
-    {
-        title: "Smart Traffic Firewall",
-        type: "Real-time Security",
-        focus: "Traffic Monitoring",
-        outcome: "Auto-Blocking",
-        github: "https://github.com/chetanya1998/Firewall_MVP",
-        desc: "Real-time system detecting automated abuse via logging, behavioral features, and anomaly models.",
-        structuredDesc: [
-            { label: "Problem", text: "Logs are noisy; manual response is slow. Detection without enforcement creates blind spots." },
-            { label: "Solution", text: "Flask ingestion + Traffic Simulator + Monitoring Agent (Anomaly Models) + Action Layer." },
-            { label: "JTBD", text: "Monitor traffic, quarantine offenders, simulate attacks, and retrain models." }
-        ],
-        icon: <Code className="text-red-400" size={28} />
-    },
-    {
-        title: "Papersmith",
-        type: "AI Research Assistant",
-        focus: "Productivity",
-        outcome: "10+ AI Outputs",
-        demo: "https://paper-smith-e7684bce.base44.app/login?from_url=https%3A%2F%2Fpaper-smith-e7684bce.base44.app%2F",
-        desc: "AI platform for researchers to extract summaries, methodologies, and actionable ideas from dense PDFs.",
-        structuredDesc: [
-            { label: "Problem", text: "Researchers spend excessive time extracting methodologies and ideas from dense PDFs without an organized workflow." },
-            { label: "Solution", text: "Shipped core workflows (PDF upload, dashboards) and 10+ AI outputs (summary, method, mind maps) with offline caching." },
-            { label: "Users", text: "Researchers summarizing contributions; Students creating study assets; Builders finding MVP ideas." }
-        ],
-        icon: <BookOpen className="text-teal-400" size={28} />
-    }
-];
-
-const leadership = [
-    {
-        role: "1st Position",
-        org: "PM School Competition",
-        desc: "Secured 1st rank for the Finshots Product Case Study."
-    },
-    {
-        role: "1st Position",
-        org: "PM School Competition",
-        desc: "Secured 1st rank for the Elderfit Case Study."
-    },
-    {
-        role: "1st Position",
-        org: "Product Space - PM Hackathon 2.0",
-        desc: "Winner of the Product Management Hackathon."
-    },
-    {
-        role: "Best Pitch Award",
-        org: "Unibots",
-        desc: "Awarded for building a product within 30 hours during a company-wide hackathon event."
-    },
-    {
-        role: "Vice-Chairperson",
-        org: "IEEE Student Branch",
-        desc: "Led the student branch operations and initiatives during the 2020-2021 tenure."
-    }
-];
-
-const leadershipRoles = [
-    {
-        role: "IEEE-Vice-Chairperson of BVCOE (2020-21)",
-        points: [
-            <>Organized and managed <span className="text-white font-medium">10+ speaker sessions</span> in collaboration with Industry Experts.</>,
-            <>Co-Founder & Head Supervisor of the <span className="text-white font-medium">36-Hour International Women-Centric Hackathon called as</span> <a href="https://wiehack.bwividyapeeth.edu.in/" target="_blank" rel="noreferrer" className="text-orange-500 hover:underline decoration-orange-500/30">WIEHACK 3.0</a>.</>,
-            <>Spearheaded a team of <span className="text-white font-medium">74 Members</span>.</>,
-            <>Received <span className="text-white font-medium">Dr JK Pal Memorial Award</span> from IEEE Delhi Section.</>,
-            <>Received over <span className="text-white font-medium">50 IEEE membership applications</span>.</>
-        ]
-    },
-    {
-        role: "IEEE (IAS) - Chairperson | IEEE-Head of Public and Corporate Affairs Relations (2019 -20)",
-        points: [
-            <>Headed dual <span className="text-white font-medium">responsiblities</span>.</>,
-            <>Spearheaded a team of <span className="text-white font-medium">50 members</span>.</>,
-            <>Introduced and <span className="text-white font-medium">organized</span> a Smart City workshop.</>,
-            <>Organized a workshop on Mozilla Add-ons with a Mozilla Representative.</>,
-            <>Event Manager of <span className="text-white font-medium">WIEHack 2.0</span>.</>,
-            <>Raised Sponsorship of more than <span className="text-white font-medium">20 Lacs</span> in kinds.</>
-        ]
-    },
-    {
-        role: "Head E-Cell (2018-19)",
-        points: [
-            <>Spearheaded the Team of <span className="text-white font-medium">30+ Members</span>.</>,
-            <>Collaborated with KIET E-CELL and signed an MoU for marketing and publicity of events.</>,
-            <>Organized workshop on <span className="text-white font-medium">Research-Build-Plan Entrepreneurship</span>.</>,
-            <>Head Instructor of <span className="text-white font-medium">Aurora Workshop (Drone Making Workshop)</span>.</>,
-            <>Founder and Manager of <span className="text-white font-medium">Plan for India Event</span> in association with PayTM.</>
-        ]
-    }
-];
-
-const publications = [
-    { title: "Hybrid Deep Learning Approach for Product Categorization in E-Commerce", citations: "4", context: "AIP Conference Proceedings", link: "https://www.notion.so/chetanya-ev-project/Hybrid-Deep-Learning-Approach-for-Product-Categorization-in-E-Commerce-ecc5182d92d8437e83c59278440b93ff?source=copy_link" },
-    { title: "Blockchain in Pharmaceutical Sector", citations: "29", context: "Applications of blockchain in healthcare", link: "https://www.notion.so/chetanya-ev-project/Blockchain-In-Pharmaceutical-Sector-048966ace1c24884b59ca471769b152a?source=copy_link" },
-    { title: "Emergence of Blockchain Applications with the 6G-Enabled IoT-Based Smart City", citations: "9", context: "Blockchain for 6G-Enabled Networks", link: "https://www.notion.so/chetanya-ev-project/Emergence-of-Blockchain-Applications-with-the-6G-Enabled-IoT-Based-Smart-City-491aa6ade0cb47bcbb305ee0b7199fe0?source=copy_link" },
-    { title: "YOLO-Based Vehicle Detection and Counting for Traffic Control on Highway", citations: "7", context: "2024 2nd Intl Conference on Computation", link: "https://www.notion.so/chetanya-ev-project/YOLO-Based-Vehicle-Detection-and-Counting-for-Traffic-Control-on-Highway-e26f7d4b62714dc2a6359f601025168a?source=copy_link" },
-    { title: "Prediction of Kyphosis Disease Using Random Forest and Gradient Boosting Algorithm", citations: "1", context: "2024 2nd Intl Conference on Computation", link: "https://www.notion.so/chetanya-ev-project/Prediction-of-Kyphosis-Disease-Using-Random-Forest-and-Gradient-Boosting-Algorithm-b6fa0b9a1eb0466b9d5c12c3d7910c65?source=copy_link" },
-    { title: "The Emergence of Blockchain Technology in Industrial Revolution 5.0", citations: "5", context: "Privacy Preservation of Genomic Data", link: "https://www.notion.so/chetanya-ev-project/The-Emergence-of-Blockchain-Technology-in-Industrial-Revolution-5-0-873d38fbbaa9448a84f6d8b8f3458f9e?source=copy_link" },
-    { title: "Decentralized and Secured Applications of Blockchain in the Biomedical Domain", citations: "3", context: "Applications of blockchain and big IoT", link: "https://www.notion.so/chetanya-ev-project/Decentralized-and-Secured-Applications-of-Blockchain-in-the-Biomedical-Domain-837c3b8ccb4e4f7f944547a5593850b0?source=copy_link" },
-    { title: "Digital Twin in Agriculture Sector: Detection of Disease Using Deep Learning", citations: "13", context: "Digital Twin Technology", link: "https://www.notion.so/chetanya-ev-project/Digital-Twin-in-Agriculture-Sector-Detection-of-Disease-Using-Deep-Learning-b10898d1bdd44c2bbf08bd22da1cc5fc?source=copy_link" },
-    { title: "Healthcare Solutions for the Next Generation", citations: "5", context: "Recent Trends in Blockchain", link: "https://www.notion.so/chetanya-ev-project/Healthcare-Solutions-for-the-Next-Generation-A-Useful-Explanation-from-the-User-s-Perspective-30045bb4d57242aa80b17f24f1f48383?source=copy_link" },
-    { title: "Decentralize Energy Network (DEN) In Assimilation with Blockchain", citations: "", context: "Research Paper", link: "https://www.notion.so/chetanya-ev-project/Decentralize-Energy-Network-DEN-In-Assimilation-with-Blockchain-30ee2cb6b83043fd9af417f8d78ca81b?source=copy_link" }
-];
-
-const skills = {
-    product: ["User Research", "UI/UX Development", "Business & Marketing Modelling", "PRD Documentation", "AI-Powered Prototyping"],
-    technical: ["Zoho Projects", "Linear", "Github", "Tableau", "PowerBI", "Google Suite", "Postman", "Google Analytics", "BASE44", "Codex", "Google Ads", "Google Adsense", "Firebase", "Notion"],
-    // Keeping tools empty/merged as user requested replacement
-    tools: []
-};
-
-
-
-
-// --- Animation Components ---
-
-const FadeIn = ({ children, delay = 0, className = "" }) => {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ 
-                duration: 0.6, 
-                delay: delay / 1000, 
-                type: "spring", 
-                stiffness: 50 
-            }}
-            className={className}
-        >
-            {children}
-        </motion.div>
-    );
-};
-
-const TypewriterLine = ({ items, speed = 50 }) => {
-    const [index, setIndex] = useState(0);
-    const [isVisible, setIsVisible] = useState(false);
-    const containerRef = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-                setIndex(0); // Reset animation when out of view
-            }
-        }, { threshold: 0.1 }); // Trigger when 10% visible
-
-        if (containerRef.current) observer.observe(containerRef.current);
-
-        return () => {
-            if (containerRef.current) observer.unobserve(containerRef.current);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!isVisible) return;
-
-        // Small delay before starting to type after becoming visible
-        const startTimeout = setTimeout(() => {
-            const totalChars = items.reduce((acc, item) => acc + (item.text ? item.text.length : 0), 0);
-
-            const interval = setInterval(() => {
-                setIndex((prev) => {
-                    if (prev >= totalChars) {
-                        clearInterval(interval);
-                        return prev;
-                    }
-                    return prev + 1;
-                });
-            }, speed);
-
-            // Cleanup interval on unmount or visibility change
-            return () => clearInterval(interval);
-        }, 200);
-
-        return () => clearTimeout(startTimeout);
-    }, [items, speed, isVisible]);
-
-    // Render Logic
-    let currentGlobalIndex = 0;
-
-    return (
-        <span ref={containerRef} className="inline-block">
-            {items.map((item, i) => {
-                if (item.type === 'break') {
-                    return <br key={i} className="hidden md:block" />;
-                }
-
-                const startIndex = currentGlobalIndex;
-                const endIndex = startIndex + item.text.length;
-                currentGlobalIndex = endIndex;
-
-                if (index < startIndex) return null;
-
-                const sliceEnd = Math.min(item.text.length, index - startIndex);
-                const textSlice = item.text.substring(0, sliceEnd);
-
-                return (
-                    <span key={i} className={item.className}>
-                        {textSlice}
-                    </span>
-                );
-            })}
-            <span className="animate-pulse text-orange-500 font-light ml-0.5">|</span>
-        </span>
-    );
-};
-
-// GridBackground and CursorSpotlight removed as they are replaced by HeroBackground
-
-
-
-// --- Structural Components ---
-
-const NavItem = ({ href, label }) => (
-    <a
-        href={href}
-        className="text-base font-medium tracking-wide text-neutral-400 hover:text-white transition-colors relative group"
-    >
-        {label}
-        <span className="absolute -bottom-1 left-0 w-0 h-px bg-orange-500 transition-all group-hover:w-full"></span>
-    </a>
-);
-
-const SectionHeader = ({ title, num }) => (
-    <FadeIn>
-        <div className="flex items-baseline gap-4 mb-12 border-b border-neutral-800 pb-4">
-            <span className="font-mono text-orange-500 text-sm">0{num}</span>
-            <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">{title}</h2>
-        </div>
-    </FadeIn>
-);
+import { experiences, leadership, leadershipRoles, initiativesAndTalks, education } from './data/portfolio';
 
 export default function Portfolio() {
     const [scrolled, setScrolled] = useState(false);
+    const [activeSection, setActiveSection] = useState('hero');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [openExperienceIndex, setOpenExperienceIndex] = useState(0);
-
-    const { scrollY } = useScroll();
-    const heroY = useTransform(scrollY, [0, 800], [0, 200]);
-    const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-
-    const toggleExperience = (index) => {
-        setOpenExperienceIndex(openExperienceIndex === index ? -1 : index);
-    };
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -414,616 +30,394 @@ export default function Portfolio() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const heroTypewriterItems = [
-        { text: personalInfo.role, className: "" },
-        { type: "break" }, // Responsive break
-        { text: " @ ", className: "" },
-        { text: personalInfo.company, className: "text-orange-500" }
-    ];
+    // Intersection Observer for Active Section Tracking
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActiveSection(entry.target.id);
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach((section) => observer.observe(section));
+
+        return () => sections.forEach((section) => observer.unobserve(section));
+    }, []);
+
+    const expColors = ['#FF6A00', '#00D4FF', '#8B5CF6', '#FF2E88'];
+
+    const { scrollYProgress } = useScroll();
+    const yBg = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
     return (
-        <div className="min-h-screen bg-transparent text-neutral-300 font-sans selection:bg-orange-500/30 selection:text-orange-100 relative overflow-x-hidden">
+        <div className="min-h-screen bg-transparent text-neutral-300 font-sans selection:bg-neonOrange/30 selection:text-neonOrange relative overflow-x-hidden">
+            {/* Overlays */}
+            <div className="scanline-overlay" />
             <GlobalBackground />
-            <GlowingCursor />
+            
+            {/* Desktop Only Custom Cursor */}
+            <div className="hidden md:block">
+                <GlowingCursor />
+            </div>
 
+            <YoutubeBackgroundAudio />
+            <motion.div style={{ y: yBg }} className="fixed inset-0 pointer-events-none z-0">
+                <ParticleMeshBackground />
+            </motion.div>
 
-            {/* Navigation */}
-            <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-neutral-950/90 backdrop-blur-lg border-b border-neutral-800 py-4 shadow-2xl' : 'py-4 md:py-6 bg-transparent'}`}>
+            {/* Main Content Sections */}
+            <AudioControl />
+            <MiniTerminal activeSection={activeSection} />
+            <ProgressHUD activeSection={activeSection} />
+            <AchievementToast />
+
+            {/* Sticky Nav */}
+            <nav className={`fixed top-0 w-full z-40 transition-all duration-500 ${scrolled ? 'bg-black/80 backdrop-blur-xl border-b border-white/5 py-3' : 'py-5 bg-transparent'}`}>
                 <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center">
-                    <a href="#" className="text-xl font-bold text-white tracking-tighter flex items-center gap-2 hover:scale-105 transition-transform">
-                        <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
-                        VED.
+                    <a 
+                        href="#hero" 
+                        onClick={playClickSound}
+                        onMouseEnter={playHoverSound}
+                        className="text-xl font-heading font-black text-white tracking-tighter flex items-center gap-2 group"
+                    >
+                        <span className="text-neonOrange group-hover:animate-pulse">CV.</span>
                     </a>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <NavItem href="#work" label="Work" />
-                        <NavItem href="#projects" label="Projects" />
-                        <NavItem href="#research" label="Research" />
-                        <a href="https://drive.google.com/drive/folders/1zVni9cvt_s8TvqIpot_URAaL6RC7LrfB?usp=sharing" target="_blank" className="px-5 py-2 bg-neutral-100 text-neutral-900 text-base font-bold rounded-full hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-0.5 shadow-lg hover:shadow-orange-500/20">
-                            Resume
+                        {[
+                            { href: '#impact', label: 'Impact' },
+                            { href: '#work', label: 'Work' },
+                            { href: '#projects', label: 'Builds' },
+                            { href: '#research', label: 'Research' },
+                            { href: '#education', label: 'Education' },
+                        ].map(item => (
+                            <a 
+                                key={item.href} 
+                                href={item.href} 
+                                onClick={playClickSound}
+                                onMouseEnter={playHoverSound}
+                                className="text-sm font-mono text-neutral-400 hover:text-white transition-colors uppercase tracking-widest relative group"
+                            >
+                                {item.label}
+                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-neonOrange transition-all group-hover:w-full" />
+                            </a>
+                        ))}
+                        <a 
+                            href="#contact" 
+                            onClick={playClickSound}
+                            onMouseEnter={playHoverSound}
+                            className="px-5 py-2 border border-neonOrange/50 text-neonOrange text-sm font-mono hover:bg-neonOrange hover:text-black transition-all uppercase tracking-widest rounded-sm"
+                        >
+                            Connect
                         </a>
                     </div>
 
-                    <button className="md:hidden text-white p-2" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
-                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    <button className="md:hidden text-white p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        {isMenuOpen ? (
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                        ) : (
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+                        )}
                     </button>
                 </div>
             </nav>
 
             {/* Mobile Menu */}
             {isMenuOpen && (
-                <div className="fixed inset-0 z-40 bg-neutral-950/95 backdrop-blur-xl pt-24 px-6 md:hidden animate-in slide-in-from-top-10 duration-200">
-                    <div className="flex flex-col gap-8 text-2xl font-light text-white">
-                        <a href="#work" onClick={() => setIsMenuOpen(false)} className="hover:text-orange-500 transition-colors">Work</a>
-                        <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-orange-500 transition-colors">Projects</a>
-                        <a href="#research" onClick={() => setIsMenuOpen(false)} className="hover:text-orange-500 transition-colors">Research</a>
-                        <a href={`mailto:${personalInfo.email}`} className="text-orange-500 font-medium">Contact</a>
+                <div className="fixed inset-0 z-30 bg-black/95 backdrop-blur-xl pt-24 px-6 md:hidden">
+                    <div className="flex flex-col gap-6 text-2xl font-heading font-light text-white">
+                        <a href="#hero" onClick={() => setIsMenuOpen(false)} className="hover:text-neonOrange transition-colors">Start</a>
+                        <a href="#impact" onClick={() => setIsMenuOpen(false)} className="hover:text-neonOrange transition-colors">Impact</a>
+                        <a href="#work" onClick={() => setIsMenuOpen(false)} className="hover:text-electricBlue transition-colors">Work</a>
+                        <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-neonPink transition-colors">Builds</a>
+                        <a href="#research" onClick={() => setIsMenuOpen(false)} className="hover:text-violet transition-colors">Research</a>
+                        <a href="#education" onClick={() => setIsMenuOpen(false)} className="hover:text-acidGreen transition-colors">Education</a>
+                        <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-neonOrange font-bold">Connect</a>
                     </div>
                 </div>
             )}
 
-            {/* Hero Section */}
-            <section className="relative pt-32 pb-16 md:pt-60 md:pb-32 px-4 md:px-6 z-10 min-h-screen flex items-center">
-                <motion.div 
-                    className="max-w-7xl mx-auto w-full"
-                    style={{ y: heroY, opacity: heroOpacity }}
-                >
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-                        <div className="md:col-span-8">
-                            {/* Avatar - Mobile/Tablet */}
+            {/* Main Content */}
+            <main>
+                <HeroStartScreen onStart={() => document.getElementById('impact')?.scrollIntoView({ behavior: 'smooth' })} />
+                <ImpactScoreboard />
+                <MissionMap />
 
+                {/* Other Experiences Section */}
+                <section id="experiences" className="py-28 relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+                    <motion.div 
+                        className="mb-16"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <span className="inline-block px-3 py-1 bg-violet/10 border border-violet/30 text-violet text-xs font-mono uppercase tracking-widest rounded-sm mb-4">Previous Chapters</span>
+                        <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight">
+                            Experience <span className="text-violet">Timeline</span>
+                        </h2>
+                    </motion.div>
 
-                            <FadeIn delay={100}>
-                                <h1 className="text-4xl sm:text-5xl md:text-8xl font-medium text-white leading-[1.1] md:leading-[0.9] tracking-tight mb-8">
-                                    {personalInfo.name}<span className="text-orange-500">.</span> <br />
-                                    <span className="text-neutral-400 text-2xl sm:text-3xl md:text-5xl block mt-5 min-h-[3em] md:min-h-[2.5em]">
-                                        <TypewriterLine items={heroTypewriterItems} />
-                                    </span>
-                                </h1>
-                            </FadeIn>
+                    <div className="relative mt-8">
+                        {/* Vertical line */}
+                        <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-violet via-neonPink to-electricBlue" />
 
-                            <FadeIn delay={1200}>
-                                <p className="text-xl md:text-2xl text-neutral-300 max-w-2xl leading-relaxed mb-10 border-l border-orange-500 pl-6">
-                                    {personalInfo.tagline} <br />
-                                    <span className="text-neutral-400 text-base md:text-lg mt-2 block">Based in {personalInfo.location}</span>
-                                </p>
-                            </FadeIn>
-
-                            <FadeIn delay={1400}>
-                                <div className="flex flex-col gap-6">
-                                    {/* Primary Actions */}
-                                    <div className="flex flex-wrap gap-4">
-                                        <a href="#work" className="group flex items-center justify-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white hover:bg-neutral-800 hover:border-orange-500/50 transition-all shadow-lg text-sm md:text-base font-medium">
-                                            View Work
-                                            <ArrowUpRight className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" size={16} />
-                                        </a>
-                                        <a
-                                            href="https://drive.google.com/drive/folders/1zVni9cvt_s8TvqIpot_URAaL6RC7LrfB?usp=sharing"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="group flex items-center justify-center gap-2 px-6 py-3 text-neutral-400 hover:text-white transition-colors border border-neutral-800 rounded-full hover:bg-neutral-900 text-sm md:text-base font-medium"
-                                        >
-                                            <Download size={18} /> Download Resume
-                                        </a>
-                                    </div>
-
-                                    {/* Social Links */}
-                                    <div className="grid grid-cols-3 gap-3 w-full md:w-auto">
-                                        <a
-                                            href="https://scholar.google.com/citations?user=OqCUANwAAAAJ&hl=en"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="group flex items-center justify-center gap-2 px-5 py-2.5 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-neutral-900 text-sm font-medium hover:border-neutral-700"
-                                        >
-                                            <BookOpen size={18} />
-                                            <span>Scholar</span>
-                                        </a>
-                                        <a
-                                            href="https://www.linkedin.com/in/chetanya-ved/"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="group flex items-center justify-center gap-2 px-5 py-2.5 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-[#0077b5] hover:border-[#0077b5] text-sm font-medium"
-                                        >
-                                            <Linkedin size={18} />
-                                            <span>LinkedIn</span>
-                                        </a>
-                                        <a
-                                            href="https://github.com/chetanya1998"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="group flex items-center justify-center gap-2 px-5 py-2.5 text-neutral-400 hover:text-white transition-all border border-neutral-800 rounded-full hover:bg-neutral-900 text-sm font-medium hover:border-neutral-700"
-                                        >
-                                            <Github size={18} />
-                                            <span>GitHub</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </FadeIn>
-                        </div>
-
-                        {/* Stats Bento */}
-                        <div className="md:col-span-4 w-full mt-8 md:mt-0">
-
-                            {/* Stats Bento */}
-                            <FadeIn delay={1600}>
-                                <div className="grid grid-cols-2 gap-4">
-                                    {stats.map((stat, i) => (
-                                        <GlassCard key={i} className="p-6 min-h-[140px] flex flex-col justify-center text-center items-center">
-                                            <h3 className="text-2xl sm:text-3xl md:text-4xl font-light text-white mb-2 group-hover:text-orange-400 transition-colors pointer-events-none">{stat.value}</h3>
-                                            <p className="text-sm font-mono text-neutral-400 uppercase tracking-widest leading-relaxed pointer-events-none">{stat.label}</p>
-                                        </GlassCard>
-                                    ))}
-                                </div>
-                            </FadeIn>
-                        </div>
-                    </div>
-                </motion.div>
-            </section>
-
-            <main className="max-w-7xl mx-auto px-4 md:px-6 z-10 relative">
-
-                {/* Selected Work */}
-                <section id="work" className="py-16 md:py-24">
-                    <SectionHeader num="1" title="Experience" />
-
-                    <div className="space-y-0">
-                        {experiences.map((exp, idx) => (
-                            <FadeIn key={idx} delay={idx * 100}>
-                                <div
-                                    className={`group relative border-t border-neutral-800 transition-all duration-300 -mx-4 px-4 md:-mx-6 md:px-6 rounded-xl cursor-pointer ${openExperienceIndex === idx ? 'bg-neutral-900/30 py-8 md:py-10' : 'hover:bg-neutral-900/10 py-6 md:py-8'}`}
-                                    onClick={() => toggleExperience(idx)}
+                        {experiences && experiences.filter(exp => exp.company !== "Unibots").map((exp, i) => (
+                            <motion.div 
+                                key={exp.company}
+                                initial={{ opacity: 0, x: -30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true, margin: "-80px" }}
+                                transition={{ delay: i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                                className="mb-8 relative pl-14 md:pl-24 group"
+                            >
+                                {/* Node */}
+                                <div className="absolute left-2 md:left-6 top-6 w-5 h-5 rounded-full border-2 transition-all duration-300 flex items-center justify-center z-10"
+                                    style={{ borderColor: expColors[i % expColors.length], backgroundColor: '#080808' }}
                                 >
-                                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
-                                        <div className="md:col-span-3">
-                                            <span className="font-mono text-base md:text-lg text-neutral-400 block mb-1 group-hover:text-orange-500 transition-colors">{exp.period}</span>
-                                            <span className="text-base text-neutral-500 block mb-3 font-medium">{exp.type}</span>
-                                            {/* Mobile Chevron */}
-                                            <div className="md:hidden mt-2 text-neutral-600 group-hover:text-orange-500 transition-colors">
-                                                <ChevronDown size={20} className={`transform transition-transform duration-300 ${openExperienceIndex === idx ? 'rotate-180' : ''}`} />
-                                            </div>
+                                    <div className="w-2 h-2 rounded-full transition-all duration-300 group-hover:scale-150"
+                                        style={{ backgroundColor: expColors[i % expColors.length] }}
+                                    />
+                                </div>
+
+                                {/* Horizontal connector */}
+                                <div className="absolute left-9 md:left-13 top-8 w-5 md:w-11 h-px transition-colors duration-300"
+                                    style={{ backgroundColor: expColors[i % expColors.length], opacity: 0.4 }}
+                                />
+
+                                {/* Card */}
+                                <div className="bg-neutral-900/60 border border-neutral-800 hover:border-neutral-600 p-6 rounded-lg transition-all duration-300 card-hover backdrop-blur-sm group-hover:shadow-lg relative overflow-hidden">
+                                    {/* Accent glow */}
+                                    <div className="absolute top-0 left-0 w-full h-0.5 opacity-40 group-hover:opacity-100 transition-opacity"
+                                        style={{ backgroundColor: expColors[i % expColors.length] }}
+                                    />
+
+                                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
+                                        <div>
+                                            <h3 className="text-xl font-heading font-bold text-white group-hover:text-violet transition-colors">{exp.company}</h3>
+                                            <p className="text-neonOrange text-sm font-medium">{exp.role}</p>
                                         </div>
-
-                                        <div className="md:col-span-9 relative">
-                                            {/* Desktop Chevron */}
-                                            <div className="absolute right-0 top-1 hidden md:block text-neutral-600 group-hover:text-orange-500 transition-colors">
-                                                <ChevronDown size={24} className={`transform transition-transform duration-300 ${openExperienceIndex === idx ? 'rotate-180' : ''}`} />
-                                            </div>
-
-                                            <h3 className="text-2xl md:text-3xl font-light text-white mb-2 group-hover:text-orange-100 transition-colors pr-8">
-                                                {exp.role} {exp.company !== "UPSC Preparation & Research" && <><span className="text-neutral-500">at</span> <span className="text-orange-500">{exp.company}</span></>}
-                                            </h3>
-
-                                            <div className={`grid transition-all duration-300 ease-in-out ${openExperienceIndex === idx ? 'grid-rows-[1fr] opacity-100 mt-6' : 'grid-rows-[0fr] opacity-0 mt-0'}`}>
-                                                <div className="overflow-hidden">
-                                                    <ul className="space-y-3 mb-6">
-                                                        {exp.achievements.map((item, i) => (
-                                                            <li key={i} className="flex items-start text-neutral-300 text-base md:text-lg leading-relaxed">
-                                                                <span className="mr-3 mt-2 w-1.5 h-1.5 rounded-full bg-orange-500 flex-shrink-0"></span>
-                                                                {item}
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {exp.tags.map(tag => (
-                                                            <span key={tag} className="text-sm md:text-base px-3 py-1.5 rounded border border-neutral-700 text-neutral-400 group-hover:border-neutral-600 transition-colors">
-                                                                {tag}
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div className="md:text-right">
+                                            <p className="text-neutral-500 text-xs font-mono">{exp.period}</p>
+                                            <p className="text-neutral-600 text-xs font-mono">{exp.type}</p>
                                         </div>
                                     </div>
+                                    
+                                    <ul className="space-y-2 mt-4 mb-4">
+                                        {exp.achievements.map((ach, idx) => (
+                                            <li key={idx} className="flex items-start gap-2 text-neutral-300 text-base leading-relaxed">
+                                                <span className="text-violet mt-1 shrink-0 text-sm">▸</span>
+                                                {ach}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div className="flex flex-wrap gap-2 pt-3 border-t border-neutral-800/50">
+                                        {exp.tags.map(tag => (
+                                            <span key={tag} className="px-2.5 py-1 bg-neutral-800/80 text-neutral-400 text-[10px] font-mono uppercase tracking-wider rounded-sm border border-neutral-700/50">{tag}</span>
+                                        ))}
+                                    </div>
                                 </div>
-                            </FadeIn>
+                            </motion.div>
                         ))}
-                        <div className="border-t border-neutral-800" />
                     </div>
                 </section>
 
-                {/* Quote Section */}
-                <FadeIn delay={200}>
-                    <section className="py-12 md:py-20 flex justify-center">
-                        <div className="max-w-4xl text-center relative px-6">
-                            <Quote className="text-neutral-800 absolute -top-8 -left-4 md:-left-12 transform -scale-x-100" size={64} />
-                            <h2 className="text-2xl md:text-4xl font-serif italic text-neutral-400 leading-normal md:leading-relaxed">
-                                "The best way to predict the future is to create it."
+                <ProjectArcade />
+                <CaseStudyTheater />
+                <ResearchLab />
+                <SkillInventory />
+
+                {/* Education Section */}
+                {education && education.length > 0 && (
+                    <section id="education" className="py-20 relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+                        <motion.div 
+                            className="mb-12"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <span className="inline-block px-3 py-1 bg-acidGreen/10 border border-acidGreen/30 text-acidGreen text-xs font-mono uppercase tracking-widest rounded-sm mb-4">Academic Background</span>
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight">
+                                Education
                             </h2>
-                            <p className="mt-6 text-neutral-500 uppercase tracking-widest text-sm font-bold">— Peter Drucker</p>
-                        </div>
-                    </section>
-                </FadeIn>
+                        </motion.div>
 
-                {/* Projects Carousel */}
-                <section id="projects" className="py-16 md:py-24">
-                    <SectionHeader num="2" title="Side Projects" />
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {projects.map((project, idx) => (
-                            <FadeIn key={idx} delay={idx * 100}>
-                                <GlassCard className="p-6 md:p-8 h-full flex flex-col overflow-hidden z-10 relative pointer-events-auto">
-                                    <div className="absolute top-6 right-6 md:top-8 md:right-8 flex gap-3 opacity-0">
-                                        {/* Hidden as requested */}
-                                    </div>
-
-                                    <div className="mb-6 md:mb-8 pointer-events-none">
-                                        <div className="w-14 h-14 rounded-2xl bg-neutral-950 border border-neutral-800 flex items-center justify-center mb-6 group-hover:border-orange-500/20 transition-colors">
-                                            {project.icon}
-                                        </div>
-                                        <h3 className="text-2xl md:text-3xl font-light text-white mb-2 group-hover:text-orange-100 transition-colors">{project.title}</h3>
-                                        <p className="font-mono text-base text-orange-500">{project.type}</p>
-                                    </div>
-
-                                    {project.structuredDesc ? (
-                                        <div className="space-y-4 mt-auto flex-1 pointer-events-none">
-                                            {project.structuredDesc.map((item, i) => (
-                                                <div key={i}>
-                                                    <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider block mb-1">{item.label}</span>
-                                                    <p className="text-neutral-300 text-sm md:text-base leading-relaxed">{item.text}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 pointer-events-none">
-                                                <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 min-w-0">
-                                                    <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Focus</span>
-                                                    <span className="text-neutral-200 font-medium text-base md:text-lg break-words line-clamp-2">{project.focus}</span>
-                                                </div>
-                                                <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 min-w-0">
-                                                    <span className="block text-sm text-neutral-400 uppercase tracking-wider mb-1">Result</span>
-                                                    <span className="text-green-400 font-medium text-base md:text-lg break-words line-clamp-2">{project.outcome}</span>
-                                                </div>
-                                            </div>
-
-                                            <p className="text-neutral-300 leading-relaxed text-base md:text-lg border-l-2 border-neutral-700 pl-6 group-hover:border-orange-500/50 transition-colors mt-auto flex-1 line-clamp-4 text-ellipsis overflow-hidden pointer-events-none">
-                                                {project.desc}
-                                            </p>
-                                        </>
-                                    )}
-
-                                    <div className="mt-6 pt-6 border-t border-neutral-800/50 flex flex-wrap gap-3 relative z-20 pointer-events-auto">
-                                        {project.github && (
-                                            <a
-                                                href={project.github}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="flex items-center gap-2 px-4 py-2 bg-neutral-950 rounded-full border border-neutral-800 text-neutral-400 hover:text-white hover:border-orange-500/50 transition-colors text-sm font-medium"
-                                            >
-                                                <Github size={16} /> GitHub
-                                            </a>
-                                        )}
-                                        {project.demo && (
-                                            <a
-                                                href={project.demo}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="flex items-center gap-2 px-4 py-2 bg-neutral-800 rounded-full border border-neutral-700 text-white hover:bg-orange-600 hover:border-orange-600 transition-colors text-sm font-medium"
-                                            >
-                                                <ExternalLink size={16} /> Mockup
-                                            </a>
-                                        )}
-                                    </div>
-                                </GlassCard>
-                            </FadeIn>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Product Cases Analyzed */}
-                <section id="product-cases" className="py-16 md:py-24">
-                    <SectionHeader num="3" title="Product Cases Analyzed & Breakdowns" />
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[
-                            { title: "Bumble Dating App", subtitle: "Sentiment Analysis", tags: ["Customer Review Analysis", "Market Research", "Data Analysis"], icon: "smartphone", color: "from-yellow-400 to-yellow-600", link: "https://www.notion.so/chetanya-ev-project/Bumble-Dating-App-Sentiment-Analysis-141c9bd6786e80468013d1fcb2b7641d?source=copy_link" },
-                            { title: "Third Wave Coffee", subtitle: "Capstone Project", tags: ["Customer Acquisition", "Adoption", "Wireframes"], icon: "coffee", color: "from-amber-700 to-amber-900", link: "https://www.notion.so/chetanya-ev-project/Third-Wave-Coffee-Capstone-Project-111c9bd6786e8037896ef9de20ad38ce?source=copy_link" },
-                            { title: "FitTrack", subtitle: "PRD", tags: ["PRD", "Product Design", "Product Improvement"], icon: "activity", color: "from-emerald-500 to-emerald-700", link: "https://www.notion.so/chetanya-ev-project/FitTrack-PRD-a018727168574bce8994ba2778171916?source=copy_link" },
-                            { title: "FinBot", subtitle: "Personal Finance Manager", tags: ["Product Design", "Wireframes", "Fintech"], icon: "dollar-sign", color: "from-green-600 to-green-800", link: "https://www.notion.so/chetanya-ev-project/FinBot-Personal-Finance-Manager-107c9bd6786e80d288cde7bb1542750c?source=copy_link" },
-                            { title: "ATM for the Elderly", subtitle: "Design Case Study", tags: ["Market Research", "Product Improvement"], icon: "credit-card", color: "from-blue-600 to-blue-800", link: "https://www.notion.so/chetanya-ev-project/Case-Study-Design-an-ATM-for-the-Elderly-938aaffea94a4bb8a209fdb2c1c4ca43?source=copy_link" },
-                            { title: "Elderfit", subtitle: "Product Case Study", tags: ["Product Innovation", "Product Design", "Wireframes"], icon: "heart", color: "from-red-500 to-red-700", link: "https://www.notion.so/chetanya-ev-project/Elderfit-Product-Case-Study-ccfbffd632db4907889bdee7032844a2?source=copy_link" },
-                            { title: "Finshots", subtitle: "Product Case Study", tags: ["Fintech", "Product Improvement", "Wireframes"], icon: "trending-up", color: "from-blue-400 to-blue-600", link: "https://www.notion.so/chetanya-ev-project/Finshots-Product-Case-Study-d19d44940d3f4f18b01bbc8be558bc37?source=copy_link" },
-                            { title: "Spotify", subtitle: "Product Case Study", tags: ["Market Research", "Product Improvement", "Wireframes"], icon: "mouse-pointer", color: "from-green-500 to-green-700", link: "https://www.notion.so/chetanya-ev-project/Spotify-Product-Case-Study-479ca6717ced4a3fbabdd32fd818c16b?source=copy_link" },
-                            { title: "Evernote", subtitle: "Product Case Study", tags: ["Product Improvement", "Product Design", "Wireframes"], icon: "file-text", color: "from-green-400 to-green-600", link: "https://www.notion.so/chetanya-ev-project/Evernote-Product-Case-Study-cb6574893d4d4991af869613af275105?source=copy_link" },
-                            { title: "Google Maps", subtitle: "Improving Navigation", tags: ["Product Design", "Product Improvement"], icon: "map", color: "from-red-500 to-yellow-500", link: "https://chetanya-ev-project.notion.site/Google-Maps-Improving-Navigation-Screens-12fe6f8166df43c1948f3ea9b13dc327" },
-                            { title: "EV Industry", subtitle: "Competitive Dynamics", tags: ["Market Research", "EV"], icon: "zap", color: "from-blue-500 to-purple-500", link: "https://www.notion.so/chetanya-ev-project/Analyzing-Competitive-Dynamics-and-Market-Opportunities-in-the-Global-Electric-Vehicle-EV-Industry-49cb52c1609c4ecbafa2c60d8f7dd048?source=copy_link" }
-                        ].map((item, idx) => (
-                            <FadeIn key={idx} delay={idx * 50}>
-                                <GlassCard className={`h-full ${item.link ? 'cursor-pointer' : 'cursor-default'}`}>
-                                    <a
-                                        href={item.link || undefined}
-                                        target={item.link ? "_blank" : undefined}
-                                        rel={item.link ? "noreferrer" : undefined}
-                                        className="group flex flex-col h-full"
-                                        onClick={(e) => !item.link && e.preventDefault()}
-                                    >
-                                        {/* Thumbnail Placeholder */}
-                                        <div className={`h-40 w-full bg-gradient-to-br ${item.color} relative p-6 flex flex-col justify-between group-hover:scale-105 transition-transform duration-500`}>
-                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
-                                            <div className="relative z-10 p-3 bg-white/20 backdrop-blur-md rounded-xl w-fit text-white">
-                                                <ArrowUpRight size={20} className="text-white" />
-                                            </div>
-                                            <h3 className="relative z-10 text-xl font-bold text-white shadow-sm">{item.title}</h3>
-                                        </div>
-
-                                        <div className="p-5 flex flex-col flex-1 relative z-20 pointer-events-none">
-                                            <h4 className="text-neutral-200 font-medium mb-3">{item.subtitle}</h4>
-
-                                            <div className="flex flex-wrap gap-2 mt-auto">
-                                                {item.tags.map((tag, tIdx) => (
-                                                    <span key={tIdx} className="text-xs px-2 py-1 rounded bg-neutral-950 border border-neutral-800 text-neutral-400">
-                                                        {tag}
-                                                    </span>
-                                                ))}
-                                            </div>
-
-                                            <div className={`mt-4 pt-4 border-t border-neutral-800 flex items-center gap-2 text-sm text-orange-500 font-medium transition-all ${item.link ? 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0' : 'hidden'}`}>
-                                                Read Case Study <ArrowRight size={14} />
-                                            </div>
-                                        </div>
-                                    </a>
-                                </GlassCard>
-                            </FadeIn>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Research, Education & Skills */}
-                <section id="research" className="py-16 md:py-24">
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-
-                        {/* Left Column: Publications, Initiatives, Education */}
-                        <div className="md:col-span-7 space-y-12 md:space-y-16">
-
-                            {/* Publications */}
-                            <div>
-                                <SectionHeader num="4" title="Publications" />
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {publications.map((pub, idx) => (
-                                        <FadeIn key={idx} delay={idx * 100}>
-                                            <GlassCard className="h-full">
-                                                <a
-                                                    href={pub.link}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="p-6 flex flex-col group relative h-full cursor-pointer pointer-events-auto z-10"
-                                                >
-                                                    <div className="flex justify-between items-start mb-4 pointer-events-none">
-                                                        <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors shrink-0">
-                                                            <BookOpen size={18} />
-                                                        </div>
-                                                        {pub.citations && (
-                                                            <span className="text-xs font-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 px-2 py-1 rounded border border-neutral-800">
-                                                                Citations: <span className="text-orange-500">{pub.citations}</span>
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <div className="flex items-start justify-between gap-2 pointer-events-none">
-                                                        <h4 className="text-white font-medium text-lg mb-2 leading-snug group-hover:text-orange-100 transition-colors line-clamp-3">{pub.title}</h4>
-                                                        <ArrowUpRight size={16} className="text-neutral-600 group-hover:text-orange-500 shrink-0 transition-colors" />
-                                                    </div>
-                                                    <p className="text-neutral-500 text-sm mt-auto pt-4 border-t border-neutral-800 line-clamp-2 pointer-events-none">
-                                                        {pub.context}
-                                                    </p>
-                                                </a>
-                                            </GlassCard>
-                                        </FadeIn>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Initiatives & Talks - w/ Carousel */}
-                            <div>
-                                <SectionHeader num="5" title="Initiatives & Talks" />
-                                <div className="flex flex-col gap-4">
-                                    {[
-                                        {
-                                            title: "IEEE - INCACCT’23 & 24",
-                                            role: "Research Paper Presented & Reviewer",
-                                            desc: "Contributed to academic discourse by presenting original research papers and serving as a reviewer for peer-reviewed conference submissions.",
-                                            link: "https://ieee-incacct.org/"
-                                        },
-                                        {
-                                            title: "Wiehack 3.0 (Covid-19)",
-                                            role: "Lead Organizer",
-                                            desc: "Organized a flagship online hackathon during the pandemic, fostering innovation and collaboration among hundreds of participants globally.",
-                                            link: "https://wiehack.bwividyapeeth.edu.in/"
-                                        },
-                                        {
-                                            title: "Important Initiatives",
-                                            role: "Various Projects",
-                                            desc: "Led multiple strategic initiatives focusing on community engagement, technical workshops, and student mentorship programs.",
-                                            link: "#"
-                                        }
-                                    ].map((item, idx) => (
-                                        <FadeIn key={idx} delay={idx * 100}>
-                                            <div
-                                                className="group block w-full text-left"
-                                            >
-                                                <div className="p-6 md:p-8 bg-neutral-900 border border-neutral-800 rounded-2xl md:rounded-3xl hover:border-orange-500/30 hover:bg-neutral-800 transition-all duration-300 flex flex-col md:flex-row gap-6 md:items-start relative overflow-hidden">
-
-                                                    {/* Left: Role & Title */}
-                                                    <div className="md:w-[35%] flex-shrink-0 pr-8">
-                                                        <h4 className="text-white font-medium text-lg md:text-xl mb-3 group-hover:text-orange-100 transition-colors">{item.title}</h4>
-                                                        <p className="text-orange-500 text-xs uppercase tracking-wider font-bold">{item.role}</p>
-                                                    </div>
-
-                                                    {/* Right: Desc */}
-                                                    <div className="md:w-[65%] border-t md:border-t-0 md:border-l border-neutral-800 pt-4 md:pt-0 md:pl-8">
-                                                        <p className="text-neutral-300 text-sm md:text-base leading-relaxed">{item.desc}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </FadeIn>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Education */}
-                            <div>
-                                <SectionHeader num="6" title="Education" />
-                                <FadeIn>
-                                    <GlassCard className="p-6 md:p-8">
-                                        <div className="flex flex-col sm:flex-row items-start gap-6 pointer-events-none">
-                                            <div className="p-4 bg-neutral-800 rounded-2xl shrink-0">
-                                                <GraduationCap className="text-white" size={28} />
+                        <div className="grid grid-cols-1 gap-6">
+                            {education.map((edu, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                                    className="bg-neutral-900/60 border border-neutral-800 p-6 rounded-lg backdrop-blur-sm relative overflow-hidden group hover:border-acidGreen/50 transition-colors"
+                                >
+                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-acidGreen opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-2xl shadow-inner border border-neutral-700">
+                                                {edu.icon}
                                             </div>
                                             <div>
-                                                <h3 className="text-xl font-medium text-white">{education.degree}</h3>
-                                                <p className="text-orange-400 mt-1 font-medium">{education.university}</p>
-                                                <div className="flex flex-wrap items-center gap-3 md:gap-4 mt-4 text-base text-neutral-500">
-                                                    <span className="bg-neutral-900 px-3 py-1 rounded-full">{education.year}</span>
-                                                    <span className="hidden sm:block w-1 h-1 bg-neutral-700 rounded-full"></span>
-                                                    <span>{education.location}</span>
-                                                    <span className="hidden sm:block w-1 h-1 bg-neutral-700 rounded-full"></span>
-                                                    <span className="text-neutral-200 font-semibold">{education.grade}</span>
-                                                </div>
+                                                <h3 className="text-xl font-heading font-bold text-white mb-1">{edu.degree}</h3>
+                                                <p className="text-neutral-400 font-medium">{edu.university}</p>
                                             </div>
                                         </div>
-                                    </GlassCard>
-                                </FadeIn>
-                            </div>
-
+                                        
+                                        <div className="flex flex-col md:items-end gap-1 pl-16 md:pl-0">
+                                            <span className="text-neutral-500 font-mono text-sm tracking-widest">{edu.duration}</span>
+                                            <span className="text-acidGreen font-mono text-sm border border-acidGreen/30 px-2 py-0.5 rounded bg-acidGreen/10">CGPA: {edu.cgpa}</span>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
                         </div>
+                    </section>
+                )}
 
-                        {/* Right Column: Skills & Leadership */}
-                        <div className="md:col-span-5 space-y-8">
-
-                            {/* Skills */}
-                            <FadeIn delay={200}>
-                                <GlassCard className="p-6 md:p-8">
-                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3 pointer-events-none">
-                                        <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400"><Database size={20} /></div>
-                                        Skills & Stack
-                                    </h3>
-
-                                    <div className="space-y-6 pointer-events-none">
-                                        <div>
-                                            <h4 className="text-sm text-neutral-400 uppercase tracking-widest mb-4">Product Skills</h4>
-                                            <div className="flex flex-wrap gap-2.5">
-                                                {skills.product.map(skill => (
-                                                    <span key={skill} className="px-4 py-2 bg-neutral-950 border border-neutral-800 rounded-full text-neutral-300 text-base md:text-lg hover:border-neutral-600 hover:text-white transition-colors cursor-default pointer-events-auto">
-                                                        {skill}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <h4 className="text-sm text-neutral-400 uppercase tracking-widest mb-4">Tools & Technologies</h4>
-                                            <div className="flex flex-wrap gap-2.5">
-                                                {skills.technical.map(skill => (
-                                                    <span key={skill} className="px-4 py-2 bg-neutral-950 border border-neutral-800 rounded-full text-neutral-300 text-base md:text-lg hover:border-neutral-600 hover:text-white transition-colors cursor-default pointer-events-auto">
-                                                        {skill}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </GlassCard>
-                            </FadeIn>
-
-                            {/* Leadership & Awards */}
-                            <FadeIn delay={300}>
-                                <GlassCard className="p-6 md:p-8">
-                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3 pointer-events-none">
-                                        <div className="p-2 bg-yellow-500/10 rounded-lg text-yellow-400"><Award size={20} /></div>
-                                        Recognition
-                                    </h3>
-                                    <div className="space-y-6 pointer-events-none">
-                                        {leadership.map((item, idx) => (
-                                            <div key={idx} className="relative pl-6 border-l border-neutral-800 hover:border-orange-500 transition-colors">
-                                                <h4 className="text-white font-medium text-lg">{item.role}</h4>
-                                                <p className="text-sm text-orange-500 uppercase tracking-wider mb-2 font-bold">{item.org}</p>
-                                                <p className="text-base text-neutral-400 leading-relaxed">{item.desc}</p>
-                                            </div>
-                                        ))}
-                                        <div className="relative pl-6 border-l border-neutral-800 hover:border-orange-500 transition-colors">
-                                            <h4 className="text-white font-medium text-lg">Dr. J. K. Pal Memorial Award</h4>
-                                            <p className="text-sm text-orange-500 uppercase tracking-wider mb-2 font-bold">IEEE Delhi Section</p>
-                                        </div>
-                                    </div>
-                                </GlassCard>
-                            </FadeIn>
-
-                            {/* Leadership Roles & Responsibilities */}
-                            <FadeIn delay={400}>
-                                <GlassCard className="p-6 md:p-8">
-                                    <h3 className="text-xl font-light text-white mb-8 flex items-center gap-3 pointer-events-none">
-                                        <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400"><Users size={20} /></div>
-                                        Leadership Role & Responsibilities
-                                    </h3>
-                                    <div className="space-y-8 pointer-events-none">
-                                        {leadershipRoles.map((role, idx) => (
-                                            <div key={idx} className="relative pl-6 border-l border-neutral-800 hover:border-orange-500 transition-colors">
-                                                <h4 className="text-white font-medium text-lg leading-snug mb-3">{role.role}</h4>
-                                                <ul className="space-y-2">
-                                                    {role.points.map((point, pIdx) => (
-                                                        <li key={pIdx} className="text-neutral-400 text-sm leading-relaxed list-disc list-outside ml-4">
-                                                            {point}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </GlassCard>
-                            </FadeIn>
-
-                        </div>
-
-                    </div>
-                </section>
-
-            </main>
-
-            {/* Footer */}
-            <footer className="relative mt-16 md:mt-24 bg-neutral-950 pt-16 md:pt-24 pb-12 px-4 md:px-6 border-t border-neutral-900 overflow-hidden">
-                {/* Decorative elements */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px] h-[300px] bg-orange-600/10 rounded-full blur-[80px] md:blur-[100px] pointer-events-none"></div>
-
-                <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="grid md:grid-cols-2 gap-12 md:gap-16 mb-16 md:mb-24">
-                        <div>
-                            <h2 className="text-5xl md:text-8xl font-bold text-white tracking-tighter mb-8 leading-none">
-                                Let's <br />
-                                <span className="text-orange-500">Connect.</span>
+                {/* Leadership & Recognition */}
+                {leadership && leadership.length > 0 && (
+                    <section id="recognition" className="py-28 relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+                        <motion.div 
+                            className="mb-16"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <span className="inline-block px-3 py-1 bg-neonOrange/10 border border-neonOrange/30 text-neonOrange text-xs font-mono uppercase tracking-widest rounded-sm mb-4">Achievements</span>
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight">
+                                Recognition & <span className="text-neonOrange">Leadership</span>
                             </h2>
-                            <p className="text-neutral-400 text-base md:text-lg max-w-md leading-relaxed">
-                                Open to product management roles and interesting collaborations. Let's discuss how we can build meaningful products together.
-                            </p>
+                        </motion.div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {leadership.map((item, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1, duration: 0.5 }}
+                                    whileHover={{ y: -5, scale: 1.02 }}
+                                    className="relative group p-[1px] rounded-2xl overflow-hidden bg-gradient-to-b from-neutral-800 to-neutral-950 shadow-lg"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-neonOrange via-neonPink to-violet opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="relative bg-[#080808] h-full rounded-2xl p-8 flex flex-col justify-between z-10">
+                                        <div>
+                                            <div className="text-4xl mb-6 group-hover:scale-110 transition-transform origin-left">🏆</div>
+                                            <h3 className="text-2xl font-heading font-bold text-white mb-2">{item.role}</h3>
+                                            <p className="text-xs font-mono text-neonOrange tracking-widest uppercase mb-4">{item.org}</p>
+                                        </div>
+                                        <p className="text-neutral-400 leading-relaxed text-sm">{item.desc}</p>
+                                        
+                                        {/* Cyberpunk accents */}
+                                        <div className="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-neutral-800 group-hover:border-neonOrange transition-colors rounded-tr-2xl" />
+                                        <div className="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-neutral-800 group-hover:border-neonOrange transition-colors rounded-bl-2xl" />
+                                    </div>
+                                </motion.div>
+                            ))}
                         </div>
+                    </section>
+                )}
 
-                        <div className="flex flex-col justify-end items-start md:items-end gap-6">
-                            <a
-                                href={`mailto:${personalInfo.email}`}
-                                className="group flex items-center gap-4 text-xl md:text-3xl text-neutral-300 hover:text-white transition-colors"
-                            >
-                                <div className="p-3 md:p-4 bg-neutral-900 rounded-full group-hover:bg-orange-500 transition-colors">
-                                    <Mail size={20} className="text-white md:w-6 md:h-6" />
+                {/* Leadership Roles & Responsibilities */}
+                {leadershipRoles && leadershipRoles.length > 0 && (
+                    <section id="leadership-roles" className="py-12 relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-10 hover:bg-neutral-900 transition-colors"
+                        >
+                            <h3 className="text-2xl font-heading font-bold text-white mb-10 flex items-center gap-3">
+                                <div className="p-3 bg-neonOrange/10 rounded-lg text-neonOrange">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                                 </div>
-                                <span>{personalInfo.email}</span>
-                            </a>
+                                Leadership Role & Responsibilities
+                            </h3>
+                            <div className="space-y-10">
+                                {leadershipRoles.map((role, idx) => (
+                                    <div key={idx} className="relative pl-6 md:pl-8 border-l border-neutral-800 hover:border-neonOrange transition-colors">
+                                        <h4 className="text-white font-medium text-lg md:text-xl leading-snug mb-4">{role.role}</h4>
+                                        <ul className="space-y-3">
+                                            {role.points.map((point, pIdx) => {
+                                                // Quick hack to parse markdown bold and links from the string
+                                                const formattedPoint = point
+                                                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-medium">$1</strong>')
+                                                    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noreferrer" class="text-neonOrange hover:underline decoration-neonOrange/30">$1</a>');
+                                                
+                                                return (
+                                                    <li key={pIdx} className="text-neutral-400 text-sm md:text-base leading-relaxed list-disc list-outside ml-4 marker:text-neonOrange" dangerouslySetInnerHTML={{ __html: formattedPoint }} />
+                                                );
+                                            })}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </section>
+                )}
 
-                            <a
-                                href={personalInfo.linkedin}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="group flex items-center gap-4 text-xl md:text-3xl text-neutral-300 hover:text-white transition-colors"
-                            >
-                                <div className="p-3 md:p-4 bg-neutral-900 rounded-full group-hover:bg-[#0077b5] transition-colors">
-                                    <Linkedin size={20} className="text-white md:w-6 md:h-6" />
-                                </div>
-                                <span>LinkedIn Profile</span>
-                            </a>
+                {/* Initiatives & Talks */}
+                {initiativesAndTalks && initiativesAndTalks.length > 0 && (
+                    <section id="talks" className="py-20 relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+                        <motion.div 
+                            className="mb-12"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <span className="inline-block px-3 py-1 bg-electricBlue/10 border border-electricBlue/30 text-electricBlue text-xs font-mono uppercase tracking-widest rounded-sm mb-4">Speaking & Leadership</span>
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight">
+                                Initiatives & <span className="text-electricBlue">Talks</span>
+                            </h2>
+                        </motion.div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {initiativesAndTalks.map((item, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1, duration: 0.5 }}
+                                    className="bg-neutral-900/40 border border-neutral-800 rounded-xl p-6 relative overflow-hidden group hover:border-electricBlue/50 transition-colors"
+                                >
+                                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
+                                        <div className="text-6xl">🎙</div>
+                                    </div>
+                                    <h3 className="text-xl font-heading font-bold text-white mb-2 relative z-10">{item.title}</h3>
+                                    <p className="text-sm font-mono text-electricBlue mb-3 relative z-10">{item.org}</p>
+                                    <p className="text-neutral-400 text-sm leading-relaxed relative z-10">{item.desc}</p>
+                                </motion.div>
+                            ))}
                         </div>
-                    </div>
+                    </section>
+                )}
 
-                    <div className="pt-8 border-t border-neutral-900 flex justify-center items-center text-neutral-600 text-sm">
-                        <p className="text-center">© {new Date().getFullYear()} {personalInfo.name}. All rights reserved.</p>
-                    </div>
-                </div>
-            </footer>
-        </div >
+                <ContactTerminal />
+                
+                {/* Footer */}
+                <footer className="relative z-10 py-8 text-center border-t border-neutral-800 bg-[#050505]">
+                    <p className="text-neutral-500 font-mono text-sm tracking-widest uppercase">
+                        Made by Chetanya with <span className="text-neonPink animate-pulse">❤</span>
+                    </p>
+                    <p className="text-neutral-600 font-mono text-xs mt-2">
+                        &copy; 2026 COPYRIGHT
+                    </p>
+                </footer>
+            </main>
+        </div>
     );
 }
