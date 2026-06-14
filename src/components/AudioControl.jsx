@@ -55,7 +55,7 @@ export const AudioControl = () => {
     };
 
     return (
-        <div ref={containerRef} className="fixed top-24 right-4 md:right-8 z-50 flex flex-col gap-2 items-center">
+        <div ref={containerRef} className="fixed top-24 right-4 md:right-8 z-30 flex flex-col gap-2 items-center">
             {/* Sound FX Toggle */}
             <motion.button
                 whileHover={{ scale: 1.1 }}

@@ -139,7 +139,7 @@ export const MissionMap = () => {
                             exit={{ scale: 0.95, y: 20 }}
                             transition={{ type: "spring", damping: 25, stiffness: 300 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-[#0A0A0F] border border-electricBlue/30 w-full max-w-2xl rounded-lg shadow-2xl overflow-hidden"
+                            className="bg-[#0A0A0F] border border-electricBlue/30 w-full max-w-2xl max-h-[90vh] rounded-lg shadow-2xl flex flex-col mt-16 md:mt-0"
                         >
                             <div className="border-b border-neutral-800 p-4 bg-neutral-900/50 flex justify-between items-center">
                                 <span className="font-mono text-electricBlue text-xs tracking-widest uppercase flex items-center gap-2">
@@ -151,7 +151,7 @@ export const MissionMap = () => {
                                 </button>
                             </div>
                             
-                            <div className="p-8">
+                            <div className="p-6 md:p-8 overflow-y-auto scrollbar-hide">
                                 <h3 className="text-3xl font-heading font-bold text-white mb-8">{activeMission.title}</h3>
                                 
                                 <div className="space-y-8">

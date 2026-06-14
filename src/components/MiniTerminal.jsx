@@ -16,7 +16,7 @@ const sectionMeta = {
 };
 
 export const MiniTerminal = ({ activeSection }) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(typeof window !== 'undefined' && window.innerWidth >= 768);
     const [logs, setLogs] = useState([]);
     const prevSectionRef = useRef(null);
     const logContainerRef = useRef(null);
@@ -58,7 +58,7 @@ export const MiniTerminal = ({ activeSection }) => {
     };
 
     return (
-        <div className="fixed bottom-4 right-4 z-50">
+        <div className="fixed bottom-4 left-4 z-50">
             <AnimatePresence>
                 {isOpen ? (
                     <motion.div
@@ -67,7 +67,7 @@ export const MiniTerminal = ({ activeSection }) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.9 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className="w-[380px] md:w-[420px] bg-[#050505] border-2 border-neutral-800 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.8)] font-mono text-sm"
+                        className="w-[calc(100vw-2rem)] sm:w-[380px] md:w-[420px] bg-[#050505] border-2 border-neutral-800 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.8)] font-mono text-sm"
                     >
                         {/* Header */}
                         <div className="bg-neutral-900/90 border-b-2 border-neutral-800 px-4 py-3 flex items-center justify-between">
